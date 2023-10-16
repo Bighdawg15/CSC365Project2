@@ -1,5 +1,6 @@
 # CSC 365: Project 2
- 
+
+Made by Harley, Radhe, Seth, and Zayd 
 Code Example:
 --------------------------------------------------------
 unsigned a b c
