@@ -22,7 +22,7 @@ while y > 0
 	print \n
 	y = y - 1
 --------------------------------------------------------------
-Python Code:
+Python Code: (Experimental)
 --------------------------------------------------------------
 # unsigned a b c
 # signed x y z
@@ -80,8 +80,123 @@ while (x <= 0){
 --------------------------------------------------------------
 Assembly Code:
 --------------------------------------------------------------
-
-
-
-
+1: // ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
+2: //
+3: 
+4: #include <iostream>
+5: using namespace std;
+6: 
+7: int main(){
+ 	push        rbp  
+ 	push        rdi  
+ 	sub         rsp,1A8h  
+ 	lea         rbp,[rsp+20h]  
+ 	lea         rcx,[00007FF653C13067h]  
+ 	call        00007FF653C013ED  
+8: 	int a, b, c;
+9: 	uint8_t x, y, z;
+10: 
+11: 	a = 3;
+ 	mov         dword ptr [rbp+4],3  
+12: 	b = a;
+ 	mov         eax,dword ptr [rbp+4]  
+ 	mov         dword ptr [rbp+24h],eax  
+13: 	c = (3 * a) / 2;
+ 	imul        eax,dword ptr [rbp+4],3  
+ 	cdq  
+ 	sub         eax,edx  
+ 	sar         eax,1  
+ 	mov         dword ptr [rbp+44h],eax  
+14: 
+15: 	x = -5;
+	 mov         byte ptr [rbp+64h],0FBh  
+16: 	y = x * -5;
+ 	movzx       eax,byte ptr [rbp+64h]  
+ 	imul        eax,eax,0FFFFFFFBh  
+ 	mov         byte ptr [rbp+0000000000000084h],al  
+17: 	z = x + y - 5;
+ 	movzx       eax,byte ptr [rbp+64h]  
+	movzx       ecx,byte ptr [rbp+0000000000000084h]  
+ 	lea         eax,[rax+rcx-5]  
+ 	mov         byte ptr [rbp+00000000000000A4h],al  
+18: 
+19: 	if (c <= 12) {
+ 	cmp         dword ptr [rbp+44h],0Ch  
+	jg          00007FF653C0238F  
+20: 		x = y - 5;
+ 	movzx       eax,byte ptr [rbp+0000000000000084h]  
+ 	sub         eax,5  
+ 	mov         byte ptr [rbp+64h],al  
+21: 	}
+ 	jmp         00007FF653C0239C  
+22: 	else {
+23: 		x = y + 15;
+ 	movzx       eax,byte ptr [rbp+0000000000000084h]  
+ 	add         eax,0Fh  
+ 	mov         byte ptr [rbp+64h],al  
+24: 	}
+25: 
+26: 	while (x <= 0) {
+ 	movzx       eax,byte ptr [rbp+64h]  
+ 	test        eax,eax  
+ 	jg          00007FF653C02473  
+27: 		cout << a << endl;
+ 	mov         edx,dword ptr [rbp+4]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        qword ptr [00007FF653C111B0h]  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+28: 		cout << b << endl;
+ 	mov         edx,dword ptr [rbp+24h]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        qword ptr [00007FF653C111B0h]  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+29: 		cout << c << endl;
+ 	mov         edx,dword ptr [rbp+44h]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        qword ptr [00007FF653C111B0h]  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+30: 		cout << x << endl;
+ 	movzx       edx,byte ptr [rbp+64h]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        00007FF653C01087  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+31: 		cout << y << endl;
+ 	movzx       edx,byte ptr [rbp+0000000000000084h]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        00007FF653C01087  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+32: 		cout << z << endl;
+ 	movzx       edx,byte ptr [rbp+00000000000000A4h]  
+ 	mov         rcx,qword ptr [00007FF653C11198h]  
+ 	call        00007FF653C01087  
+ 	lea         rdx,[00007FF653C0103Ch]  
+ 	mov         rcx,rax  
+ 	call        qword ptr [00007FF653C11188h]  
+33: 	}
+ 	jmp         00007FF653C0239C 
+34: 		
+35: 
+36: 
+37: 
+38: 
+39: 
+40: 
+41: 
+42: 
+43: }
+ 	xor         eax,eax  
+ 	lea         rsp,[rbp+0000000000000188h]  
+ 	pop         rdi  
+	pop         rbp  
+ 	ret
 --------------------------------------------------------------
