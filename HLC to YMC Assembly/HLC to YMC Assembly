@@ -1,4 +1,4 @@
-Example Code:
+Example Code: 
 --------------------------------------------------------------
 unsigned a b c
 signed x y z
@@ -78,7 +78,7 @@ while (x <= 0){
 	cout << z << endl;
 }
 --------------------------------------------------------------
-Assembly Code:
+Assembly Code: (Needs to be converted to YMC Assembly)
 --------------------------------------------------------------
 1: // ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
 2: //
