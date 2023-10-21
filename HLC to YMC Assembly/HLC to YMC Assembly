@@ -78,7 +78,7 @@ while (x <= 0){
 	cout << z << endl;
 }
 --------------------------------------------------------------
-Assembly Code: (Needs to be converted to YMC Assembly)
+Assembly Code: (Needs to be converted to YMC Assembly) (This is x86)
 --------------------------------------------------------------
 1: // ConsoleApplication3.cpp : This file contains the 'main' function. Program execution begins and ends there.
 2: //
