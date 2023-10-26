@@ -85,11 +85,11 @@ HLC to YMC Assembly:
 		High Level Code:			|		YMC Assembly
 ------------------------------------------------------------------------------------------------------------------
 if (x = y) {}						|	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
-							|	je 'Location'		(Jump if equal)
-*If argument is true, then perfrom commands		|	jne 'Location'		(Jump if statments not equal)
-*cmp then jmp to location				|	jmp 'Location'		(Unconditional Jump)
-							|	jle 'Location'		(Jump if less than or equal to)
-							|	jl 'Location'		(Jump if less than)
+else {}							|	je 'Location'		(Jump if equal)
+							|	jne 'Location'		(Jump if statments not equal)
+*If argument is true, then perfrom commands		|	jmp 'Location'		(Unconditional Jump)
+*cmp then jmp to location outside of loop		|	jle 'Location'		(Jump if less than or equal to)
+*else will happen if the statment isnt true		|	jl 'Location'		(Jump if less than)
 							|	jge 'Location'		(Jump if great than or equal to)
 							|	jg 'Location'		(Jump of greater than)
 							|	
@@ -107,35 +107,93 @@ while (x = y) {}					|	cmp x,y			(Compare Statment that subtracts, but doesnt st
 Y = Y + X						|	mov eax, 'Location Y'
 							|	mov ebx, 'Location X'
 *Store Variables into Registers				|	add eax, eax, ebx
-*Addtion is done in the Registers			|	mov 'Location Y'
+*Addition is done in the Registers			|	mov 'Location Y', eax
 							|	
 							|	add (Stored Register), (Variable Y), (Variable X)
 ------------------------------------------------------------------------------------------------------------------
 Y = Y - X						|	mov eax, 'Location Y'
 							|	mov ebx, 'Location X'
 *Store Variables into Registers				|	sub eax, eax, ebx
-*Subtraction is done in the Registers			|	mov 'Location Y'
+*Subtraction is done in the Registers			|	mov 'Location Y', eax
 							|	
 							|	sub (Stored Register), (Variable Y), (Variable X)
 ------------------------------------------------------------------------------------------------------------------
 Y = Y * X						|	mov eax, 'Location Y'
 							|	mov ebx, 'Location X'
 *Store Variables into Registers				|	mult eax, eax, ebx
-*Multiplication is done in the Registers		|	mov 'Location Y'
+*Multiplication is done in the Registers		|	mov 'Location Y', eax
 							|	
 							|	mult (Stored Register), (Variable Y), (Variable X)
 ------------------------------------------------------------------------------------------------------------------
 Y = Y / X						|	mov eax, 'Location Y'
 							|	mov ebx, 'Location X'
 *Store Variables into Registers				|	div eax, eax, ebx
-*Division is done in the Registers			|	mov 'Location Y'
+*Division is done in the Registers			|	mov 'Location Y', eax
 							|	
 							|	div (Stored Register), (Variable Y), (Variable X)
 ------------------------------------------------------------------------------------------------------------------
+Y = Y + X - Z						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	addsub eax, eax, ebx, ecx
+*AddSub is done in the Registers			|	mov 'Location Y', eax
+*Will add and then subtract in order			|	
+							|	addsub (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+Y = Y + (X / Z)						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	adddiv eax, eax, ebx, ecx
+*AddDiv is done in the Registers			|	mov 'Location Y', eax
+							|	
+							|	adddiv (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+Y = Y + (X * Z)						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	addmult eax, eax, ebx, ecx
+*AddMul is done in the Registers			|	mov 'Location Y', eax
+							|	
+							|	addmult (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+Y = Y - (X / Z)						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	subdiv eax, eax, ebx, ecx
+*SubDiv is done in the Registers			|	mov 'Location Y', eax
+							|	
+							|	subdiv (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+Y = Y - (X * Z)						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	submult eax, eax, ebx, ecx
+*SubMult is done in the Registers			|	mov 'Location Y', eax
+							|	
+							|	submult (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+Y = Y * X / Z						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+							|	mov ecx, 'Location Z'
+*Store Variables into Registers				|	multdiv eax, eax, ebx, ecx
+*MultDiv is done in the Registers			|	mov 'Location Y', eax
+							|	
+							|	multdiv (Stored Register), (Variable Y), (Variable X), (Variable Z)
+------------------------------------------------------------------------------------------------------------------
+int a, b, c;						|
+------------------------------------------------------------------------------------------------------------------
+uint8_t x, y, z;					|
+------------------------------------------------------------------------------------------------------------------
+cout << 'Variable' or "Message" << endl;		|
 ------------------------------------------------------------------------------------------------------------------
 							|
 ------------------------------------------------------------------------------------------------------------------
-
+							|
+------------------------------------------------------------------------------------------------------------------
+							|
+------------------------------------------------------------------------------------------------------------------
+							|
+------------------------------------------------------------------------------------------------------------------
 
 
 
