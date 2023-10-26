@@ -78,6 +78,66 @@ while (x <= 0){
 	cout << z << endl;
 }
 --------------------------------------------------------------
-Assembly Code: (Needs to be converted to YMC Assembly) (This is x86)
+HLC to YMC Assembly:
 --------------------------------------------------------------
+
+
+		High Level Code:			|		YMC Assembly
+------------------------------------------------------------------------------------------------------------------
+if (x = y) {}						|	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
+							|	je 'Location'		(Jump if equal)
+*If argument is true, then perfrom commands		|	jne 'Location'		(Jump if statments not equal)
+*cmp then jmp to location				|	jmp 'Location'		(Unconditional Jump)
+							|	jle 'Location'		(Jump if less than or equal to)
+							|	jl 'Location'		(Jump if less than)
+							|	jge 'Location'		(Jump if great than or equal to)
+							|	jg 'Location'		(Jump of greater than)
+							|	
+------------------------------------------------------------------------------------------------------------------
+while (x = y) {}					|	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
+							|	je 'Location'		(Jump if equal)
+*if arguemnt is true, then repeat loop			|	jne 'Location'		(Jump if statments not equal)
+*cmp then jmp back to loop if statment is true		|	jmp 'Location'		(Unconditional Jump)
+*otherwise jmp out of loop				|	jle 'Location'		(Jump if less than or equal to)
+							|	jl 'Location'		(Jump if less than)
+							|	jge 'Location'		(Jump if great than or equal to)
+							|	jg 'Location'		(Jump of greater than)
+							|	
+------------------------------------------------------------------------------------------------------------------
+Y = Y + X						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+*Store Variables into Registers				|	add eax, eax, ebx
+*Addtion is done in the Registers			|	mov 'Location Y'
+							|	
+							|	add (Stored Register), (Variable Y), (Variable X)
+------------------------------------------------------------------------------------------------------------------
+Y = Y - X						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+*Store Variables into Registers				|	sub eax, eax, ebx
+*Subtraction is done in the Registers			|	mov 'Location Y'
+							|	
+							|	sub (Stored Register), (Variable Y), (Variable X)
+------------------------------------------------------------------------------------------------------------------
+Y = Y * X						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+*Store Variables into Registers				|	mult eax, eax, ebx
+*Multiplication is done in the Registers		|	mov 'Location Y'
+							|	
+							|	mult (Stored Register), (Variable Y), (Variable X)
+------------------------------------------------------------------------------------------------------------------
+Y = Y / X						|	mov eax, 'Location Y'
+							|	mov ebx, 'Location X'
+*Store Variables into Registers				|	div eax, eax, ebx
+*Division is done in the Registers			|	mov 'Location Y'
+							|	
+							|	div (Stored Register), (Variable Y), (Variable X)
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+							|
+------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
