@@ -1,0 +1,3 @@
+Translate a loop control structure to YMC assembly. Things to think about: 
+    *In a loop, you will encounter conditional and unconditional jumps. How will you encode the jump address when you havent yet loaded the program into the memory and don’t know that instruction's address? 
+    *Maybe the function that 'loads' the program into the memory 'adjusts' the code before loading it? Maybe some other way? 
