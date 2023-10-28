@@ -180,11 +180,23 @@ Y = Y * X / Z						|	mov eax, 'Location Y'
 							|	
 							|	multdiv (Stored Register), (Variable Y), (Variable X), (Variable Z)
 ------------------------------------------------------------------------------------------------------------------
-int a, b, c;						|
+int a, b, c;						|	mov 'a or b or c', 'Location a or b or c'
+							|	
 ------------------------------------------------------------------------------------------------------------------
-uint8_t x, y, z;					|
+uint8_t x, y, z;					|	mov 'x or y or z', 'Location x or y or z'
+							|
+*Sets of sign flag to differentiate			|	
 ------------------------------------------------------------------------------------------------------------------
-cout << 'Variable' or "Message" << endl;		|
+cout << 'Variable' or "Message" << endl;		|	variable db "Message of somesort" or Array to hold each letter of message
+							|	variable;
+							|
+							|
+*Read each character individually, store in declared	| 	Example Macro:
+ array, then print as needed with loop			|		prtStr macro X
+							|			mov ah,09h		; assign HOB of ax the value 9 to invoke the DOS API string write service
+							|			mov dx,offset X	; assign dx the memory address of where string msg is stored
+							|			int 21h			; go do DOS interrupt
+							|		endm
 ------------------------------------------------------------------------------------------------------------------
 							|
 ------------------------------------------------------------------------------------------------------------------
