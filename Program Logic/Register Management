@@ -19,9 +19,10 @@ Minimize number of store/load operations: More time consuming than just using re
 
 
 
-Remember that in Y86, similar to x86, registers can be pushed to and popped from the stack using push and pop instructions respectively1. This allows you to temporarily store and retrieve register values, effectively giving you more “registers” to work with.
+in Y86, registers can be pushed to and popped from the stack. 
+This allows you to temporarily store and retrieve register values, effectively giving you more “registers” to work with.
 
-For tracking offsets of each spilled virtual register, you could use a map from virtual register ids to stack offsets2. This would help manage the complexity of dealing with multiple spilled registers.
+For tracking offsets of each spilled virtual register, you could use a map from virtual register ids to stack offsets. This would help manage the complexity of dealing with multiple spilled registers.
 
 
 ------------------------------------------------------------------------------------
