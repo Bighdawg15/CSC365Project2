@@ -10,16 +10,6 @@ HLC to YMC Assembly:
 
 	      	High Level Code:		            	|		      YMC Assembly
 ------------------------------------------------------------------------------------------------------------------
-if (x = y) {}					                |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
-else {}					               	      	|	je 'Location'		(Jump if equal)
-						               	|	jne 'Location'		(Jump if statments not equal)
-*If argument is true, then perfrom commands			|	jmp 'Location'		(Unconditional Jump)
-*cmp then jmp to location outside of loop	   		|	jle 'Location'		(Jump if less than or equal to)
-*else will happen if the statment isnt true			|	jl 'Location'		(Jump if less than)
-						            	|	jge 'Location'		(Jump if great than or equal to)
-						                |	jg 'Location'		(Jump of greater than)
-					                     	|	
-------------------------------------------------------------------------------------------------------------------
 while (x = y) {}					        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
 							        |	je 'Location'		(Jump if equal)
 *if arguemnt is true, then repeat loop			   	|	jne 'Location'		(Jump if statments not equal)
