@@ -10,7 +10,7 @@ HLC to YMC Assembly:
 
 	      	High Level Code:		            	|		      YMC Assembly
 ------------------------------------------------------------------------------------------------------------------
-while (x = y) {}					        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
+while (x == y) {}					        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
 							        |	je 'Location'		(Jump if equal)
 *if arguemnt is true, then repeat loop			   	|	jne 'Location'		(Jump if statments not equal)
 *cmp then jmp back to loop if statment is true			|	jmp 'Location'		(Unconditional Jump)
@@ -20,7 +20,7 @@ while (x = y) {}					        |	cmp x,y			(Compare Statment that subtracts, but d
 							        |	jg 'Location'		(Jump of greater than)
 							        |	
 ------------------------------------------------------------------------------------------------------------------
-for () {}						        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)
+for (x == y) {}						        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)
 							        |	je 'Location'		(Jump if equal)
 *Does function then checks and jumps			   	|	jne 'Location'		(Jump if statments not equal)
 *if true jmp to start of loop				        |	jmp 'Location'		(Unconditional Jump)
