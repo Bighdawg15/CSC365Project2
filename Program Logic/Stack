@@ -1,18 +1,40 @@
 This Program has 4 registers. This is how we deal with that.
 
-HLC:
---------------------------------------------------------------
-int a b c;
-uint8_t x y z;
+----------------------------------------------------------------------------------
+Register Complications:
+----------------------------------------------------------------------------------
+Register Spilling: Some Variables are stored in memory instead of registers due to limited number of registers
 
-YMC Assembly:
---------------------------------------------------------------
-//So we have registers eax, ebx, ecx, edx
+The Strategy:
+	Prioritize Variables: Determine which variables are used most frequently and keep them in the registers. This reduces the time taken to fetch these variables from memory.
 
-//eax, ebx, edx will hold the variables
-//edx will hold the flag?
+	Store and Load: When a variable not in a register is needed, choose one variable in a register, store it back to memory, and then load the needed variable into that register.
 
-Used push and pop
+	Reuse Registers: If there are some variables that are no longer needed in the rest of the program, their registers can be reused for other variables.
+
+Minimize number of store/load operations: More time consuming than just using registers
+
+
+
+------------------------------------------------------------------------------------
+Example:
+------------------------------------------------------------------------------------
+# Assume %eax, %ecx, %edx, %ebx are the available registers
+# v1, v2, v3 are signed variables and vu1, vu2, vu3 are unsigned variables
+
+irmovl v1, %eax   # Load v1 into %eax
+irmovl v2, %ecx   # Load v2 into %ecx
+irmovl v3, %edx   # Load v3 into %edx
+irmovl vu1, %ebx  # Load vu1 into %ebx
+
+# Now suppose we need to use vu2
+rmmovl %eax, v1   # Store v1 back to memory
+irmovl vu2, %eax  # Load vu2 into %eax (reusing the register)
+
+# If we need v1 again later
+rmmovl %eax, vu2  # Store vu2 back to memory
+irmovl v1, %eax   # Load v1 back into %eax
+
 
 
 
