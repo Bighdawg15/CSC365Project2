@@ -44,7 +44,25 @@ for () {}						        |	cmp x,y			(Compare Statment that subtracts, but doesnt 
 
 
 
+Control Structure:
+-------------------------------------------------------------------------------------------------------------------
+*Possibly keep track of flags in a register
+*If so then whenever theirs a loop, check for signed or unsigned values with an if statement and then have it alter the arithmatic if needed
+
+
+mv ax,'sign flag register'
+mov bx,0
+cmp ax,bx
+   je 'unaltered loop'
+   jne 'altered loop'
 
 
 
+while (x == 4){ //Unaltered Loop
+
+}
+
+while ((-x) == 4){ //Altered Loop
+
+}
 
