@@ -10,36 +10,36 @@ HLC to YMC Assembly:
 
 	      	High Level Code:		            	|		      YMC Assembly
 ------------------------------------------------------------------------------------------------------------------
-if (x = y) {}					                  	|	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
+if (x = y) {}					                |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
 else {}					               	      	|	je 'Location'		(Jump if equal)
-						                           	|	jne 'Location'		(Jump if statments not equal)
-*If argument is true, then perfrom commands		|	jmp 'Location'		(Unconditional Jump)
-*cmp then jmp to location outside of loop	   	|	jle 'Location'		(Jump if less than or equal to)
-*else will happen if the statment isnt true		|	jl 'Location'		(Jump if less than)
-						                           	|	jge 'Location'		(Jump if great than or equal to)
-							                           |	jg 'Location'		(Jump of greater than)
-							                           |	
+						               	|	jne 'Location'		(Jump if statments not equal)
+*If argument is true, then perfrom commands			|	jmp 'Location'		(Unconditional Jump)
+*cmp then jmp to location outside of loop	   		|	jle 'Location'		(Jump if less than or equal to)
+*else will happen if the statment isnt true			|	jl 'Location'		(Jump if less than)
+						            	|	jge 'Location'		(Jump if great than or equal to)
+						                |	jg 'Location'		(Jump of greater than)
+					                     	|	
 ------------------------------------------------------------------------------------------------------------------
-while (x = y) {}					                  |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
-							                           |	je 'Location'		(Jump if equal)
-*if arguemnt is true, then repeat loop			   |	jne 'Location'		(Jump if statments not equal)
-*cmp then jmp back to loop if statment is true	|	jmp 'Location'		(Unconditional Jump)
-*otherwise jmp out of loop				            |	jle 'Location'		(Jump if less than or equal to)
-							                           |	jl 'Location'		(Jump if less than)
-							                           |	jge 'Location'		(Jump if great than or equal to)
-							                           |	jg 'Location'		(Jump of greater than)
-							                           |	
+while (x = y) {}					        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)	
+							        |	je 'Location'		(Jump if equal)
+*if arguemnt is true, then repeat loop			   	|	jne 'Location'		(Jump if statments not equal)
+*cmp then jmp back to loop if statment is true			|	jmp 'Location'		(Unconditional Jump)
+*otherwise jmp out of loop				        |	jle 'Location'		(Jump if less than or equal to)
+							        |	jl 'Location'		(Jump if less than)
+							        |	jge 'Location'		(Jump if great than or equal to)
+							        |	jg 'Location'		(Jump of greater than)
+							        |	
 ------------------------------------------------------------------------------------------------------------------
-for () {}						                     |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)
-							                           |	je 'Location'		(Jump if equal)
-*Does function then checks and jumps			   |	jne 'Location'		(Jump if statments not equal)
-*if true jmp to start of loop				         |	jmp 'Location'		(Unconditional Jump)
-*if not true, it doesn't activate the cmp		   |	jle 'Location'		(Jump if less than or equal to)	
-							                           |	jl 'Location'		(Jump if less than)
-*if arguemnt is true, then repeat loop			   |	jge 'Location'		(Jump if great than or equal to)
-*cmp then jmp back to loop if statment is true	|	jg 'Location'		(Jump of greater than)
-*otherwise jmp out of loop				            |
-							                           |
+for () {}						        |	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)
+							        |	je 'Location'		(Jump if equal)
+*Does function then checks and jumps			   	|	jne 'Location'		(Jump if statments not equal)
+*if true jmp to start of loop				        |	jmp 'Location'		(Unconditional Jump)
+*if not true, it doesn't activate the cmp		   	|	jle 'Location'		(Jump if less than or equal to)	
+							        |	jl 'Location'		(Jump if less than)
+*if arguemnt is true, then repeat loop			   	|	jge 'Location'		(Jump if great than or equal to)
+*cmp then jmp back to loop if statment is true			|	jg 'Location'		(Jump of greater than)
+*otherwise jmp out of loop				        |
+							        |
 ------------------------------------------------------------------------------------------------------------------
 
 
