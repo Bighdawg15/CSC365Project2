@@ -23,7 +23,16 @@ in Y86, registers can be pushed to and popped from the stack.
 This allows you to temporarily store and retrieve register values, effectively giving you more “registers” to work with.
 
 For tracking offsets of each spilled virtual register, you could use a map from virtual register ids to stack offsets. This would help manage the complexity of dealing with multiple spilled registers.
+-------------------------------------------------------------------
+# Assume %eax, %ebx, %ecx are already in use
+# We want to use %edx but it's also in use
+pushl %edx  # Save %edx to the stack
 
+# Now we can use %edx for another operation
+irmovl $10, %edx  # Load 10 into %edx
+
+# When we're done with %edx, restore its original value
+popl %edx  # Restore original value of %edx from the stack
 
 ------------------------------------------------------------------------------------
 Example:
