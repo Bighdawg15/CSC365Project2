@@ -1,1 +1,21 @@
 This Program has 4 registers. This is how we deal with that.
+
+HLC:
+--------------------------------------------------------------
+int a b c;
+uint8_t x y z;
+
+YMC Assembly:
+--------------------------------------------------------------
+//So we have registers eax, ebx, ecx, edx
+
+//eax, ebx, edx will hold the variables
+//edx will hold the flag?
+
+Used push and pop
+
+
+
+
+
+
