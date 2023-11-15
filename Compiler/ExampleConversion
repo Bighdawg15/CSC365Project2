@@ -1,0 +1,74 @@
+//Not entirely sure how to write a compiler or how to run one, or even what it looks like, but here we go
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+HLC Example:
+//////////////////////////////////////////////////////////////////////////////////
+
+unsigned a, b, c;
+signed x, y, z;    //move into stack, but this would have a flag of somesort : Check with cmp
+
+a = 3;
+b = 15 + a;  
+c = (b * a) / 10;
+
+x = -5;
+y = 13;
+
+
+if c <= 10
+	x = y + 10
+else
+	x = y - 20
+
+while y > 0
+	print y
+	print \n
+	print x
+	print \n
+	y = y - 1
+
+//////////////////////////////////////////////////////////////////////////////////
+Assembly Example:
+//////////////////////////////////////////////////////////////////////////////////
+
+//Might need to have declaration of variables (Need to distingush between unsigned and signed)
+
+mov eax, 3; //Do we use variables as the 4 registers while in assembly since were simulating it?
+
+//Put varibale storage here!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+//for multiplication you can use mul for regular and Imul for signed?
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+Machine Code Example:
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

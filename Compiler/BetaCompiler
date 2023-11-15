@@ -1,0 +1,69 @@
+#Is their somesort of start at beginning of compiler to initialize?
+
+
+with open('file.txt') as file_object:   #Something to open the textfile
+    contents = file_object.read()
+    print(contents)
+
+#Search the textfile for certain things
+
+#Math Expresssion Parser (Only checks y = x '+' z) ; needs more operands
+
+def parse_line(line):
+    # Split the line into parts
+    parts = line.split('=')
+    
+    # Get the variable name (strip removes leading/trailing whitespace)
+    var_name = parts[0].strip()
+    
+    # Get the expression and split it into operands
+    expression = parts[1].strip()
+    operands = expression.split('+') #Maybe add if statement to check for different operands =, +, -, /
+    
+    # Convert the operands to integers and store them
+    operand1 = int(operands[0].strip())
+    operand2 = int(operands[1].strip())
+    
+    return var_name, operand1, operand2
+
+# Test the function
+line = "y = 10 + 4"
+var_name, operand1, operand2 = parse_line(line)
+print(f"Variable: {var_name}, Operand1: {operand1}, Operand2: {operand2}")
+
+
+#----------------------------------------------------------------------------------------
+
+def parse_line(line):
+    operators = ['=', '+', '-', '/', '<=', '>='] #Defines for different operators
+    
+    #Initialize the operands and operator; kinda interesting how you can use none?
+    operand1 = operand2 = operator = None           
+    
+    #Check's for each operator
+    for op in operators:
+        if op in line:
+            #Split line into parts
+            parts = line.split(op)
+            
+            #Get the var_name ; strip removes leading/trailing whitespace
+            var_name = parts[0].strip()
+            
+            #Get the expression, split it into operands
+            expression = parts[1].strip()
+            operands = expression.split(' ')
+            
+            #Convert the operands to integers and store
+            operand1 = int(operands[0].strip())
+            if len(operands) > 1:
+                operand2 = int(operands[1].strip())
+            
+            operator = op
+            break
+    
+    return var_name, operator, operand1, operand2
+
+#Test Function?
+#line = "y = 10 + 4"
+#var_name, operator, operand1, operand2 = parse_line(line)
+#print(f"Variable: {var_name}, Operator: {operator}, Operand1: {operand1}, Operand2: {operand2}")
