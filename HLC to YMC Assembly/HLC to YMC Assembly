@@ -104,6 +104,17 @@ while (x = y) {}					|	cmp x,y			(Compare Statment that subtracts, but doesnt st
 							|	jg 'Location'		(Jump of greater than)
 							|	
 ------------------------------------------------------------------------------------------------------------------
+for () {}						|	cmp x,y			(Compare Statment that subtracts, but doesnt store output to compare)
+							|	je 'Location'		(Jump if equal)
+*Does function then checks and jumps			|	jne 'Location'		(Jump if statments not equal)
+*if true jmp to start of loop				|	jmp 'Location'		(Unconditional Jump)
+*if not true, it doesn't activate the cmp		|	jle 'Location'		(Jump if less than or equal to)	
+							|	jl 'Location'		(Jump if less than)
+*if arguemnt is true, then repeat loop			|	jge 'Location'		(Jump if great than or equal to)
+*cmp then jmp back to loop if statment is true		|	jg 'Location'		(Jump of greater than)
+*otherwise jmp out of loop				|
+							|
+------------------------------------------------------------------------------------------------------------------
 Y = Y + X						|	mov eax, 'Location Y'
 							|	mov ebx, 'Location X'
 *Store Variables into Registers				|	add eax, eax, ebx
