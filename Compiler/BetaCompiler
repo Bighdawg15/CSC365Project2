@@ -1,3 +1,34 @@
+#-----------------------------------------------------------------------------------------------------
+#Rules
+#-----------------------------------------------------------------------------------------------------
+#Lines 1,2: Variables are declare at the top of the program. First unsigned, then signed. 
+#           All variables are implicitly of type 8-bit integer. No need to declare that.  
+#           Only 3 unsigned variables are allowed: a, b, c.  
+#           Only 3 signed variables are allowed: x, y, z. 
+#Lines 4-9: One assignment is performed per line. Don’t write b = 0, x = 4 etc 
+#Lines 5,6,12,14: The four arithmetic operations allowed are + - * / 
+#Line 6: A single line can have max of two arithmetic operations. Operators are evaluated left to right. 
+#        For example, Line 6 means c = (b * a) / 10 
+#Line 6: Only the integer part of an operation is preserved. So the output of Line 6 right-side is (18*3)/10 = 5 
+#Lines 11,16: Two types of conditional structures are allowed: if-else and while loop. No nested structures. 
+#Lines 11-21: Indentation indicates whether a line is inside an if-else or a while loop 
+#Lines 11,16: Only a single relational operator is allowed in if and while statements. 
+#             So if x > 10 && y < 5 is not allowed. 
+#Lines 17-21: The print command is the only mechanism to output a value. 
+#             There is no user input command, i.e. a cin equivalent 
+
+#-----------------------------------------------------------------------------------------------------
+#NOTES:
+#-----------------------------------------------------------------------------------------------------
+#Were using python and we know what variables are signed and unsigned, so just make differnt if statments
+
+#Should output 2 txt files (Assembly and Machine code): Or just one that seperates them
+
+#Indentation should be checked for the high level code to determine if in if/while loops
+
+
+
+#-----------------------------------------------------------------------------------------------------
 #Is their somesort of start at beginning of compiler to initialize?
 
 
@@ -7,35 +38,11 @@ with open('file.txt') as file_object:   #Something to open the textfile
 
 #Search the textfile for certain things
 
-#Math Expresssion Parser (Only checks y = x '+' z) ; needs more operands
-
-def parse_line(line):
-    # Split the line into parts
-    parts = line.split('=')
-    
-    # Get the variable name (strip removes leading/trailing whitespace)
-    var_name = parts[0].strip()
-    
-    # Get the expression and split it into operands
-    expression = parts[1].strip()
-    operands = expression.split('+') #Maybe add if statement to check for different operands =, +, -, /
-    
-    # Convert the operands to integers and store them
-    operand1 = int(operands[0].strip())
-    operand2 = int(operands[1].strip())
-    
-    return var_name, operand1, operand2
-
-# Test the function
-line = "y = 10 + 4"
-var_name, operand1, operand2 = parse_line(line)
-print(f"Variable: {var_name}, Operand1: {operand1}, Operand2: {operand2}")
-
 
 #----------------------------------------------------------------------------------------
-
+#only searchs for 1 operation
 def parse_line(line):
-    operators = ['=', '+', '-', '/', '<=', '>='] #Defines for different operators
+    operators = ['=', '+', '-', '/', '<=', '>='] #Defines for different operators : Doesn;t need <= or >=
     
     #Initialize the operands and operator; kinda interesting how you can use none?
     operand1 = operand2 = operator = None           
@@ -64,6 +71,92 @@ def parse_line(line):
     return var_name, operator, operand1, operand2
 
 #Test Function?
-#line = "y = 10 + 4"
+#line = "y = 10 + 4"        #I'd set variable after storing line then run function
 #var_name, operator, operand1, operand2 = parse_line(line)
 #print(f"Variable: {var_name}, Operator: {operator}, Operand1: {operand1}, Operand2: {operand2}")
+
+#-----------------------------------------------------------------------------------------------------
+#
+#-----------------------------------------------------------------------------------------------------
+#Make if statment to check line #, that will determine what we do
+#
+
+
+# Open file
+file = open('test.txt') 
+  
+# read the content of the file opened 
+content = file.readlines() 
+print(content[i]) #Prints contents from line 10 : Line 1 is 0 in this scale
+
+
+
+# print first 3 lines of file 
+#print("first three lines") 
+#print(content[0:3]) 
+
+ops = {'+', '-', '*', '/'}
+
+def parser (i):
+    counter = None #Resets for the beginning of function
+    
+    #Counts number of arithmatic
+    counter = content.count('+')
+    counter = content.count('-')
+    counter = content.count('*')
+    counter = content.count('/')
+
+    #Maybe make a (counter == 0) for the other parsing, so it runs better in loop, then just make that check which line it is and the rules associated
+    if counter == 1:
+        #If the arithmatic is only 1
+        #Split y = x + z and store
+        
+    elif counter == 2:
+        #If the arithmatic is only 2
+        #Split y = x + y + z
+    else:    
+        #Display error message
+
+    return #list variables to return
+
+
+#Check's for which operator was use, and how many : Might need to put under 1 varibale to check if I'm limited to variables
+
+i = 0   #Define  i, which is correspondent to line #
+
+while (i >= 21):    #i = line number currently on
+    parser(i)   #Parse line
+                #Function to conver to assembly, also prints conversion to text file
+                #Converts ASM to Machine Code (Just a loop to check each assembly line conversion and printing to seperate text file)
+
+
+    
+
+  
+
+
+    i = i + 1   #Loop ends here and restarts
+
+
+#------------------------------------------------------------------
+#Storage Management for Assembly
+#------------------------------------------------------------------
+#push and pop will be enacted by a array for each register, or for the memory (Still deciding)
+
+mCount = 0
+var = {0, 0, 0, 0, 0, 0} #Would need to make it bigger to make it represent memory or push/pop
+
+#ex.
+    def push(var):  #Change var to whatever needs to be input
+        
+        var.append(var) # (Is whats being added to the array)
+        var[mCount] = 55 #Modify specific thing in array
+
+        mCount = mCount + 1 #increment through memory
+        return var[i] #Return variable
+
+    def pop(var): #Pull things out of the memory
+           
+
+
+        return

@@ -41,7 +41,6 @@ mov eax, 3; //Do we use variables as the 4 registers while in assembly since wer
 
 //Put varibale storage here!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
 //for multiplication you can use mul for regular and Imul for signed?
 
 

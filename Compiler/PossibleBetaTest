@@ -1,0 +1,49 @@
+import re
+
+def check_file(filename):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+    # Define the allowed variables
+    unsigned_vars = ['a', 'b', 'c']
+    signed_vars = ['x', 'y', 'z']
+
+    # Check each line
+    for i, line in enumerate(lines):
+        line = line.strip()  # Remove leading/trailing whitespace
+
+        # Check variable declarations (lines 1-2)
+        if i < 2:
+            var, value = line.split('=')
+            var = var.strip()
+            if var not in unsigned_vars + signed_vars:
+                print(f"Error on line {i+1}: Invalid variable '{var}'")
+            elif var in unsigned_vars and int(value) < 0:
+                print(f"Error on line {i+1}: Unsigned variable '{var}' cannot be negative")
+            continue
+
+        # Check assignments (lines 4-9)
+        if 3 <= i < 9:
+            var, expr = line.split('=')
+            var = var.strip()
+            if var not in unsigned_vars + signed_vars:
+                print(f"Error on line {i+1}: Invalid variable '{var}'")
+            elif len(re.findall(r'[\+\-\*\/]', expr)) > 2:
+                print(f"Error on line {i+1}: Too many operations in expression")
+            continue
+
+        # Check conditional structures (lines 11, 16)
+        if i == 10 or i == 15:
+            if 'if' not in line and 'while' not in line:
+                print(f"Error on line {i+1}: Missing conditional structure")
+            elif len(re.findall(r'[><]=?', line)) > 1:
+                print(f"Error on line {i+1}: Too many relational operators in condition")
+            continue
+
+        # Check print command (lines 17-21)
+        if 16 <= i < 21:
+            if 'print' not in line:
+                print(f"Error on line {i+1}: Missing print command")
+
+# Call the function with your filename
+check_file('your_file.txt')
