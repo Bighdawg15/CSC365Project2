@@ -1,0 +1,5 @@
+
+HLC instruction    |   YMC Address  |   YMC assembly |  YMC encoding | Modified registers | Modified flags
+while y > 0        | XXXX           |  cmp eax, 0    | AB CD 20 XXXX |----                | SF = , OF, ZF, CF 
+                   |                |  Jg xxx
+

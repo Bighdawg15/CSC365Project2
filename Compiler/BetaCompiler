@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------------------------------
-#Rules
+#Rules                  : Not very helpful
 #-----------------------------------------------------------------------------------------------------
 #Lines 1,2: Variables are declare at the top of the program. First unsigned, then signed. 
 #           All variables are implicitly of type 8-bit integer. No need to declare that.  
@@ -25,6 +25,11 @@
 #Should output 2 txt files (Assembly and Machine code): Or just one that seperates them
 
 #Indentation should be checked for the high level code to determine if in if/while loops
+
+#If a varible was signed or unsigned. Would i need to have a manual check for if its outside of that number range so that it gives an error message?
+
+
+
 
 
 
@@ -95,29 +100,176 @@ print(content[i]) #Prints contents from line 10 : Line 1 is 0 in this scale
 #print("first three lines") 
 #print(content[0:3]) 
 
-ops = {'+', '-', '*', '/'}
+ops = {'+', '-', '*', '/', '='}
 
-def parser (i):
+def parser (i): # Starts at line 0
+    #insert loop so that this repeats, or place outside of function
     counter = None #Resets for the beginning of function
     
     #Counts number of arithmatic
-    counter = content.count('+')
-    counter = content.count('-')
-    counter = content.count('*')
-    counter = content.count('/')
 
-    #Maybe make a (counter == 0) for the other parsing, so it runs better in loop, then just make that check which line it is and the rules associated
-    if counter == 1:
-        #If the arithmatic is only 1
-        #Split y = x + z and store
-        
-    elif counter == 2:
+    #do I need to use the placeholder varible for this? If so use a loop to route through all the components
+    counter = content[i].count('+')
+    counter = content[i].count('-')
+    counter = content[i].count('*')
+    counter = content[i].count('/')
+    counter = content[i].count('=')
+
+    placeHolder = content[i].split()    #splits specific line 
+
+    if (counter == 0):
+        #Only checks for signed or unsigned
+        #also checks if space is blank
+        if (placeHolder[0] == "unsigned"):
+            #Output Unsigned to assembly
+        elif (placeHolder[0] == "signed"):
+            #Output Signed to assembly
+        elif (placeHolder[0] == ""):
+            #return blank space
+        else:
+            #Error Handling message
+
+    elif (counter == 1):   #Means this is a loop of somesort, or just basic declaration
+        #Check for while of if
+        #or ex. B = 4 ; Pretty simple
+        if (placeHolder[0] == "while"):
+            #
+        elif (placeHolder[0] == "if"):
+            #
+        elif (placeHolder[0] == "a"):
+            #store number into designated slot of memory 
+        elif (placeHolder[0] == "b"):
+            #store number into designated slot of memory 
+        elif (placeHolder[0] == "c"):
+            #store number into designated slot of memory 
+        elif (placeHolder[0] == "x"):
+            #store number into designated slot of memory 
+        elif (placeHolder[0] == "y"):
+            #store number into designated slot of memory 
+        elif (placeHolder[0] == "z"):
+            #store number into designated slot of memory 
+        else:
+            #Error Handling
+
+    elif (counter == 2): #Somesort of arithmatic. Ex. y = x + z
         #If the arithmatic is only 2
-        #Split y = x + y + z
+        #Split y = x + y
+        #I know the format, so just check that specific spot
+        if (placeHolder[4] == "+"):
+            #
+            if (placeHolder[0] == "a"): #check which variable it is
+                #
+                a = placeHolder[3] + placeHolder[5]
+            elif (placeHolder[0] == "b"):
+                #
+                b = placeHolder[3] + placeHolder[5]
+            elif (placeHolder[0] == "c"):
+                #
+                c = placeHolder[3] + placeHolder[5]
+            elif (placeHolder[0] == "x"):
+                #
+                x = placeHolder[3] + placeHolder[5]
+            elif (placeHolder[0] == "y"):
+                #
+                y = placeHolder[3] + placeHolder[5]
+            elif (placeHolder[0] == "z"):
+                #
+                z = placeHolder[3] + placeHolder[5]
+            else:
+                #Error Handling     
+
+        elif (placeHolder[3] == "-"):
+            #
+            if (placeHolder[0] == "a"): #check which variable it is
+                #
+                a = placeHolder[3] - placeHolder[5]
+            elif (placeHolder[0] == "b"):
+                #
+                b = placeHolder[3] - placeHolder[5]
+            elif (placeHolder[0] == "c"):
+                #
+                c = placeHolder[3] - placeHolder[5]
+            elif (placeHolder[0] == "x"):
+                #
+                x = placeHolder[3] - placeHolder[5]
+            elif (placeHolder[0] == "y"):
+                #
+                y = placeHolder[3] - placeHolder[5]
+            elif (placeHolder[0] == "z"):
+                #
+                z = placeHolder[3] - placeHolder[5]
+            else:
+                #Error Handling        
+            
+        elif (placeHolder[3] == "*"):
+            #
+            if (placeHolder[0] == "a"): #check which variable it is
+                #
+                a = placeHolder[3] * placeHolder[5]
+            elif (placeHolder[0] == "b"):
+                #
+                b = placeHolder[3] * placeHolder[5]
+            elif (placeHolder[0] == "c"):
+                #
+                c = placeHolder[3] * placeHolder[5]
+            elif (placeHolder[0] == "x"):
+                #
+                x = placeHolder[3] * placeHolder[5]
+            elif (placeHolder[0] == "y"):
+                #
+                y = placeHolder[3] * placeHolder[5]
+            elif (placeHolder[0] == "z"):
+                #
+                z = placeHolder[3] * placeHolder[5]
+            else:
+                #Error Handling          
+            
+        elif (placeHolder[3] == "/"):
+            #
+            if (placeHolder[0] == "a"): #check which variable it is
+                #
+                a = placeHolder[3] / placeHolder[5]
+            elif (placeHolder[0] == "b"):
+                #
+                b = placeHolder[3] / placeHolder[5]
+            elif (placeHolder[0] == "c"):
+                #
+                c = placeHolder[3] / placeHolder[5]
+            elif (placeHolder[0] == "x"):
+                #
+                x = placeHolder[3] / placeHolder[5]
+            elif (placeHolder[0] == "y"):
+                #
+                y = placeHolder[3] / placeHolder[5]
+            elif (placeHolder[0] == "z"):
+                #
+                z = placeHolder[3] / placeHolder[5]
+            else:
+                #Error Handling        
+                        
+        else:
+            #Error handling message
+
+    elif (counter == 3): # For Equations like y = x + z + a
+        #
+        if (placeHolder[0] == "a"):
+            #
+            if (placeHolder[4] == ""):
+            #
+        elif (placeHolder[0] == "b"):
+            #
+        elif (placeHolder[0] == "c"):
+            #
+        elif (placeHolder[0] == "x"):
+            #
+        elif (placeHolder[0] == "y"):
+            #
+        elif (placeHolder[0] == "z"):
+            #
     else:    
         #Display error message
-
-    return #list variables to return
+        placeholder = None
+    return 0 #list variables to return
 
 
 #Check's for which operator was use, and how many : Might need to put under 1 varibale to check if I'm limited to variables
