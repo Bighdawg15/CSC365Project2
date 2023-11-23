@@ -92,7 +92,7 @@ file = open('test.txt')
   
 # read the content of the file opened 
 content = file.readlines() 
-print(content[i]) #Prints contents from line 10 : Line 1 is 0 in this scale
+#print(content[i]) #Prints contents from line 10 : Line 1 is 0 in this scale
 
 
 
@@ -122,10 +122,17 @@ def parser (i): # Starts at line 0
         #also checks if space is blank
         if (placeHolder[0] == "unsigned"):
             #Output Unsigned to assembly
+            
+            #Just make another txt file and have that format later
+
+
         elif (placeHolder[0] == "signed"):
             #Output Signed to assembly
+
+
         elif (placeHolder[0] == ""):
             #return blank space
+
         else:
             #Error Handling message
 
