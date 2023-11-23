@@ -31,264 +31,376 @@
 
 
 
+#there is one in both the betaCompiler and Assmebly-to-Machine file. One must go
+
+#oldCode can go, just temp holder
+
+#Finish unsigned and signed in both betaCompiler and Assembly-to-Machine
+
+#Add the print command to the assembly conversion
+
+#------------------------------------------------------------------
+#Storage Management for Assembly
+#------------------------------------------------------------------
+stackCounter = 0
+
+class Stack:
+    def __init__(self):
+        self.stack = [] #blank array to represent
+
+    def push(self, register):
+        stackCounter = stackCounter + 1 #To know where things located
+        self.stack.append(register)
+
+    def pop(self):
+        stackCounter = stackCounter - 1 #To know where things are located
+        if len(self.stack) < 1:
+            return None
+        return self.stack.pop()
+
+#How it works:
+
+#create a stack
+    #stack = Stack() 
+
+#Push registers to the stack
+    #stack.push('eax')
+    #stack.push('ebx')
+    #stack.push('ecx')
+
+#How to Pop registers from the stack (just an example)
+    #print(stack.pop())  # Outputs: %ecx
+    #print(stack.pop())  # Outputs: %ebx
+    #print(stack.pop())  # Outputs: %eax
+
+
+
+#Memory:
+    #eax = 0001
+    #ebx = 0002
+    #ecx = 0003
+    #edx = 0004
+    #a = 0005
+    #b = 0006
+    #c = 0007
+    #x = 0008
+    #y = 0009
+    #z = 0010
+    #line 0 = 0011 -> Increments up for storage
+#-----------------------------------------------------------------------------------------------------
+#flags
+#-----------------------------------------------------------------------------------------------------
+#make a function to be ran after each step for the flags to be updated
+#reset at beginning of function, output to csv file
+#maybe make seperate file
+overflowF = 0
+zeroF = 0
+carryF = 0
+signF = 0
+
+#-----------------------------------------------------
+#writeASM fucntion (for HLC to ASM)
+#-----------------------------------------------------
+def writeASM (lineCounter, new_line):
+    line_number = lineCounter  # The line numbers are 1-based
+    #new_line = 'This is the new text for line 3\n'
+
+    # Read all lines
+    with open('assembler.txt', 'r') as f:
+        lines = f.readlines()
+
+    # Modify the specific line
+    if line_number - 1 < len(lines):
+        lines[line_number - 1] = new_line
+    else:
+        lines.append(new_line)  # Append the new line if the file has fewer lines
+
+    # Write all lines back to the file
+    with open('assembler.txt', 'w') as f:
+        f.writelines(lines)
+
+    return 0
+
+#-----------------------------------------------------------------------------------------------------
+#variables/imports
+#-----------------------------------------------------------------------------------------------------
+import re
+
+i = 0
+lineCounter = 0
+
+#preload before program just in case
+a = 0
+b = 0
+c = 0
+x = 0
+y = 0
+z = 0
+
+#registers
+eax = 0
+ebx = 0
+ecx = 0
+edx = 0
+
+#placeHolder registers
+eax2 = 0
+ebx2 = 0
+ecx2 = 0
+edx2 = 0
 
 
 #-----------------------------------------------------------------------------------------------------
-#Is their somesort of start at beginning of compiler to initialize?
+#register updates
+#-----------------------------------------------------------------------------------------------------
+#stores its own backup registers after each line and compares. if something was changed, it will show on the csv file
 
+def regCheck (eax, ebx, ecx, edx):
+    regChanges = None   #reset before check
 
-with open('file.txt') as file_object:   #Something to open the textfile
-    contents = file_object.read()
-    print(contents)
-
-#Search the textfile for certain things
-
-
-#----------------------------------------------------------------------------------------
-#only searchs for 1 operation
-def parse_line(line):
-    operators = ['=', '+', '-', '/', '<=', '>='] #Defines for different operators : Doesn;t need <= or >=
+    if (eax != eax2):
+       regChanges = regChanges + ', eax'
+    if (ebx != ebx2):
+       regChanges = regChanges + ', ebx'
+    if (ecx != ecx2):
+       regChanges = regChanges + ', ecx'
+    if (edx != edx2):
+       regChanges = regChanges + ', edx'
     
-    #Initialize the operands and operator; kinda interesting how you can use none?
-    operand1 = operand2 = operator = None           
-    
-    #Check's for each operator
-    for op in operators:
-        if op in line:
-            #Split line into parts
-            parts = line.split(op)
-            
-            #Get the var_name ; strip removes leading/trailing whitespace
-            var_name = parts[0].strip()
-            
-            #Get the expression, split it into operands
-            expression = parts[1].strip()
-            operands = expression.split(' ')
-            
-            #Convert the operands to integers and store
-            operand1 = int(operands[0].strip())
-            if len(operands) > 1:
-                operand2 = int(operands[1].strip())
-            
-            operator = op
-            break
-    
-    return var_name, operator, operand1, operand2
-
-#Test Function?
-#line = "y = 10 + 4"        #I'd set variable after storing line then run function
-#var_name, operator, operand1, operand2 = parse_line(line)
-#print(f"Variable: {var_name}, Operator: {operator}, Operand1: {operand1}, Operand2: {operand2}")
+    return regChanges
 
 #-----------------------------------------------------------------------------------------------------
-#
+#parser
 #-----------------------------------------------------------------------------------------------------
-#Make if statment to check line #, that will determine what we do
-#
+
+def betaParser (i):
+    lineCounter = lineCounter + 1   #increments for each line, there is one in both the betaCompiler and Assmebly-to-Machine file. One must go or they should be different
+    temp = len(placeHolder)
+
+    with open('test.txt', 'r') as file:
+        content = file.readlines()#reads all lines
+        line2 = content[i] #gets line
+        placeHolder = re.split('[ ]', line2)  #splits line into words : just a space, this is meant more for more than one split type though
+
+    if (placeHolder[0] == "unsigned"):  #the varibles are consisnt with naming right?
+        writeASM(lineCounter, 'finsh unsigned')       #FINISH Unsigned
+    elif (placeHolder[0] == "signed"):
+        writeASM(lineCounter, 'finish signed')      #FINSH Signed
+    elif (placeHolder[0] == "a" or "b" or "c"): #only positive range: 0 to 255
+        #check lenght to figure out whats happening
+        #3 = declaration, 5 = regular arithmetic, 7 = double arithmetic
+        
+        #everything happens in here, the compiler
+
+        if (temp == 3): #basic declaration
+            #can have variabes, to move in and out of memory
+            if (placeHolder[0] == 'a'):
+                var1 = 'a'
+                if (placeHolder[2] == 'a'):
+                    #basically a noop : registers stay the same and nothing happens
+                    var2 = 'a' 
+                    
+                    eax = a
+                    a = eax
+
+                elif (placeHolder[2] == 'b'):
+                    var2 = 'b' 
+                    
+                    eax = b
+                    a = eax
+
+                elif (placeHolder[2] == 'c'):
+                    var2 = 'c' 
+                    
+                    eax = c
+                    a = eax
+
+                elif (placeHolder[2] == 'eax'):
+                    var2 = 'eax' 
+                    a = eax  
+                                  
+                elif (placeHolder[2] == 'ebx'):
+                    var2 = 'ebx' 
+                    a = ebx  
+
+                elif (placeHolder[2] == 'ecx'):
+                    var2 = 'ecx' 
+                    a = ecx  
+
+                elif (placeHolder[2] == 'edx'):
+                    var2 = 'edx' 
+                    a = edx  
+                else:   #moving a specified number into the memory
+                    var2 = placeHolder[2]
+                    a = placeHolder[2]
+
+            elif (placeHolder[0] == 'b'):
+                var1 = 'b'
+                if (placeHolder[2] == 'a'):
+                    #basically a noop : registers stay the same and nothing happens
+                    var2 = 'a' 
+                    
+                    eax = a
+                    b = eax
+
+                elif (placeHolder[2] == 'b'):
+                    var2 = 'b' 
+                    
+                    eax = b
+                    b = eax
+
+                elif (placeHolder[2] == 'c'):
+                    var2 = 'c' 
+                    
+                    eax = c
+                    b = eax
+
+                elif (placeHolder[2] == 'eax'):
+                    var2 = 'eax' 
+                    b = eax  
+                                  
+                elif (placeHolder[2] == 'ebx'):
+                    var2 = 'ebx' 
+                    b = ebx  
+
+                elif (placeHolder[2] == 'ecx'):
+                    var2 = 'ecx' 
+                    b = ecx  
+
+                elif (placeHolder[2] == 'edx'):
+                    var2 = 'edx' 
+                    a = edx  
+                else:   #moving a specified number into the memory
+                    var2 = placeHolder[2]
+                    b = placeHolder[2]
+
+            elif (placeHolder[0] == 'c'):
+                var1 = 'c'
+                if (placeHolder[2] == 'a'):
+                    #basically a noop : registers stay the same and nothing happens
+                    var2 = 'a' 
+                    
+                    eax = a
+                    c = eax
+
+                elif (placeHolder[2] == 'b'):
+                    var2 = 'b' 
+                    
+                    eax = b
+                    c = eax
+
+                elif (placeHolder[2] == 'c'):
+                    var2 = 'c' 
+                    
+                    eax = c
+                    c = eax
+
+                elif (placeHolder[2] == 'eax'):
+                    var2 = 'eax' 
+                    c = eax  
+                                  
+                elif (placeHolder[2] == 'ebx'):
+                    var2 = 'ebx' 
+                    c = ebx  
+
+                elif (placeHolder[2] == 'ecx'):
+                    var2 = 'ecx' 
+                    c = ecx  
+
+                elif (placeHolder[2] == 'edx'):
+                    var2 = 'edx' 
+                    c = edx  
+                else:   #moving a specified number into the memory
+                    var2 = placeHolder[2]
+                    c = placeHolder[2]
+                    
+
+            elif (placeHolder[0] == 'eax'):
+                var1 = 'eax'
+                
+            elif (placeHolder[0] == 'ebx'):
+                var1 = 'ebx'
+
+            elif (placeHolder[0] == 'ecx'):
+                var1 = 'ecx'
+
+            elif (placeHolder[0] == 'edx'):
+                var1 = 'edx'
+
+            else:
+                var1 = placeHolder[0]
+                #need an if statement to check for other
 
 
-# Open file
-file = open('test.txt') 
-  
-# read the content of the file opened 
-content = file.readlines() 
-#print(content[i]) #Prints contents from line 10 : Line 1 is 0 in this scale
+
+            var4 = 'mov ' + var1 + ', ' + var2
+            writeASM(lineCounter, var4)
 
 
+            #temp 5 will have t0 change
+        elif (temp == 5): #basic math : 0 1 2 3 4 : y = a + b
+            if (placeHolder[3] == "+"):
+                var4 = 'add ' + placeHolder[0] + placeHolder[2] + placeHolder[4]
+                writeASM(lineCounter, var4)
 
-# print first 3 lines of file 
-#print("first three lines") 
-#print(content[0:3]) 
+            elif (placeHolder[3] == "-"):
+                var4 = 'sub ' + placeHolder[0] + placeHolder[2] + placeHolder[4]
+                writeASM(lineCounter, var4)
 
-ops = {'+', '-', '*', '/', '='}
+            elif (placeHolder[3] == "*"):
+                var4 = 'mult ' + placeHolder[0] + placeHolder[2] + placeHolder[4]
+                writeASM(lineCounter, var4) 
 
-def parser (i): # Starts at line 0
-    #insert loop so that this repeats, or place outside of function
-    counter = None #Resets for the beginning of function
+            elif (placeHolder[3] == "/"):
+                var4 = 'div ' + placeHolder[0] + placeHolder[2] + placeHolder[4]
+                writeASM(lineCounter, var4)
+
+            else:
+                print("Compiler: Something happened at temp 5 in abc")
+        elif (temp == 7): #2 types for the math
+                #can just do a 'mult' + 'div' = 'multdiv'
+        else:
+            print("Error in the compiler: Length is not right")
+
+    elif (placeHolder[0] == "x" or "y" or "z"): #both positive and negative     Range: -128 to 127
+
+    elif (placeHolder[0] == "if"):
+        #worry about indentation
+
+    elif (placeHolder[0] == "else"):
+        #worry about indentation
+
+    elif (placeHolder[0] == "while"):
+        #worry about indentation
     
-    #Counts number of arithmatic
-
-    #do I need to use the placeholder varible for this? If so use a loop to route through all the components
-    counter = content[i].count('+')
-    counter = content[i].count('-')
-    counter = content[i].count('*')
-    counter = content[i].count('/')
-    counter = content[i].count('=')
-
-    placeHolder = content[i].split()    #splits specific line 
-
-    if (counter == 0):
-        #Only checks for signed or unsigned
-        #also checks if space is blank
-        if (placeHolder[0] == "unsigned"):
-            #Output Unsigned to assembly
-            
-            #Just make another txt file and have that format later
+    else:
+        print("Error for Parser")
 
 
-        elif (placeHolder[0] == "signed"):
-            #Output Signed to assembly
+
+    return 0
 
 
-        elif (placeHolder[0] == ""):
-            #return blank space
-
-        else:
-            #Error Handling message
-
-    elif (counter == 1):   #Means this is a loop of somesort, or just basic declaration
-        #Check for while of if
-        #or ex. B = 4 ; Pretty simple
-        if (placeHolder[0] == "while"):
-            #
-        elif (placeHolder[0] == "if"):
-            #
-        elif (placeHolder[0] == "a"):
-            #store number into designated slot of memory 
-        elif (placeHolder[0] == "b"):
-            #store number into designated slot of memory 
-        elif (placeHolder[0] == "c"):
-            #store number into designated slot of memory 
-        elif (placeHolder[0] == "x"):
-            #store number into designated slot of memory 
-        elif (placeHolder[0] == "y"):
-            #store number into designated slot of memory 
-        elif (placeHolder[0] == "z"):
-            #store number into designated slot of memory 
-        else:
-            #Error Handling
-
-    elif (counter == 2): #Somesort of arithmatic. Ex. y = x + z
-        #If the arithmatic is only 2
-        #Split y = x + y
-        #I know the format, so just check that specific spot
-        if (placeHolder[4] == "+"):
-            #
-            if (placeHolder[0] == "a"): #check which variable it is
-                #
-                a = placeHolder[3] + placeHolder[5]
-            elif (placeHolder[0] == "b"):
-                #
-                b = placeHolder[3] + placeHolder[5]
-            elif (placeHolder[0] == "c"):
-                #
-                c = placeHolder[3] + placeHolder[5]
-            elif (placeHolder[0] == "x"):
-                #
-                x = placeHolder[3] + placeHolder[5]
-            elif (placeHolder[0] == "y"):
-                #
-                y = placeHolder[3] + placeHolder[5]
-            elif (placeHolder[0] == "z"):
-                #
-                z = placeHolder[3] + placeHolder[5]
-            else:
-                #Error Handling     
-
-        elif (placeHolder[3] == "-"):
-            #
-            if (placeHolder[0] == "a"): #check which variable it is
-                #
-                a = placeHolder[3] - placeHolder[5]
-            elif (placeHolder[0] == "b"):
-                #
-                b = placeHolder[3] - placeHolder[5]
-            elif (placeHolder[0] == "c"):
-                #
-                c = placeHolder[3] - placeHolder[5]
-            elif (placeHolder[0] == "x"):
-                #
-                x = placeHolder[3] - placeHolder[5]
-            elif (placeHolder[0] == "y"):
-                #
-                y = placeHolder[3] - placeHolder[5]
-            elif (placeHolder[0] == "z"):
-                #
-                z = placeHolder[3] - placeHolder[5]
-            else:
-                #Error Handling        
-            
-        elif (placeHolder[3] == "*"):
-            #
-            if (placeHolder[0] == "a"): #check which variable it is
-                #
-                a = placeHolder[3] * placeHolder[5]
-            elif (placeHolder[0] == "b"):
-                #
-                b = placeHolder[3] * placeHolder[5]
-            elif (placeHolder[0] == "c"):
-                #
-                c = placeHolder[3] * placeHolder[5]
-            elif (placeHolder[0] == "x"):
-                #
-                x = placeHolder[3] * placeHolder[5]
-            elif (placeHolder[0] == "y"):
-                #
-                y = placeHolder[3] * placeHolder[5]
-            elif (placeHolder[0] == "z"):
-                #
-                z = placeHolder[3] * placeHolder[5]
-            else:
-                #Error Handling          
-            
-        elif (placeHolder[3] == "/"):
-            #
-            if (placeHolder[0] == "a"): #check which variable it is
-                #
-                a = placeHolder[3] / placeHolder[5]
-            elif (placeHolder[0] == "b"):
-                #
-                b = placeHolder[3] / placeHolder[5]
-            elif (placeHolder[0] == "c"):
-                #
-                c = placeHolder[3] / placeHolder[5]
-            elif (placeHolder[0] == "x"):
-                #
-                x = placeHolder[3] / placeHolder[5]
-            elif (placeHolder[0] == "y"):
-                #
-                y = placeHolder[3] / placeHolder[5]
-            elif (placeHolder[0] == "z"):
-                #
-                z = placeHolder[3] / placeHolder[5]
-            else:
-                #Error Handling        
-                        
-        else:
-            #Error handling message
-
-    elif (counter == 3): # For Equations like y = x + z + a
-        #
-        if (placeHolder[0] == "a"):
-            #
-            if (placeHolder[4] == ""):
-            #
-        elif (placeHolder[0] == "b"):
-            #
-        elif (placeHolder[0] == "c"):
-            #
-        elif (placeHolder[0] == "x"):
-            #
-        elif (placeHolder[0] == "y"):
-            #
-        elif (placeHolder[0] == "z"):
-            #
-    else:    
-        #Display error message
-        placeholder = None
-    return 0 #list variables to return
 
 
-#Check's for which operator was use, and how many : Might need to put under 1 varibale to check if I'm limited to variables
+#---------------------------------------------------------------------
+#What actually does assembly work stuff (This is where things are dont, like arithmetics and moving into or from memory)
+#---------------------------------------------------------------------
+
+
+
+#---------------------------------------------------------------------
+#Start to run stuff
+#---------------------------------------------------------------------
 
 i = 0   #Define  i, which is correspondent to line #
 
 while (i >= 21):    #i = line number currently on
-    parser(i)   #Parse line
-                #Function to conver to assembly, also prints conversion to text file
-                #Converts ASM to Machine Code (Just a loop to check each assembly line conversion and printing to seperate text file)
+    betaParser(i)   #Parse line
+                    #Function to conver to assembly, also prints conversion to text file
+                    #Converts ASM to Machine Code (Just a loop to check each assembly line conversion and printing to seperate text file)
 
-
+    #make csv file in here, line by line
     
 
   
@@ -297,25 +409,3 @@ while (i >= 21):    #i = line number currently on
     i = i + 1   #Loop ends here and restarts
 
 
-#------------------------------------------------------------------
-#Storage Management for Assembly
-#------------------------------------------------------------------
-#push and pop will be enacted by a array for each register, or for the memory (Still deciding)
-
-mCount = 0
-var = {0, 0, 0, 0, 0, 0} #Would need to make it bigger to make it represent memory or push/pop
-
-#ex.
-    def push(var):  #Change var to whatever needs to be input
-        
-        var.append(var) # (Is whats being added to the array)
-        var[mCount] = 55 #Modify specific thing in array
-
-        mCount = mCount + 1 #increment through memory
-        return var[i] #Return variable
-
-    def pop(var): #Pull things out of the memory
-           
-
-
-        return

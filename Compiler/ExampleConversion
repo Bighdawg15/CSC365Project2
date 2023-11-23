@@ -35,13 +35,6 @@ while y > 0
 Assembly Example:
 //////////////////////////////////////////////////////////////////////////////////
 
-//Might need to have declaration of variables (Need to distingush between unsigned and signed)
-
-mov eax, 3; //Do we use variables as the 4 registers while in assembly since were simulating it?
-
-//Put varibale storage here!!!!!!!!!!!!!!!!!!!!!!!!!
-
-//for multiplication you can use mul for regular and Imul for signed?
 
 
 

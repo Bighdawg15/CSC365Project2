@@ -1,5 +1,19 @@
 
-HLC instruction    |   YMC Address  |   YMC assembly |  YMC encoding | Modified registers | Modified flags
-while y > 0        | XXXX           |  cmp eax, 0    | AB CD 20 XXXX |----                | SF = , OF, ZF, CF 
-                   |                |  Jg xxx
+#HLC instruction    |   YMC Address  |   YMC assembly |  YMC encoding | Modified registers | Modified flags
+#while y > 0        | XXXX           |  cmp eax, 0    | AB CD 20 XXXX |----                | SF = , OF, ZF, CF 
+#                   |                |  Jg xxx
 
+#----------------------------------------------
+#Example of making a csv file
+#----------------------------------------------
+import csv
+
+# data to be written row-wise in csv file
+data = [['Name', 'Age'], ['Alex', 22], ['Bob', 25], ['Charlie', 30]]
+
+# writing to csv file
+with open('people.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+print("CSV file created successfully")
