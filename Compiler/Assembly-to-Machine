@@ -53,7 +53,7 @@ i = 1
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
 def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
-    line_number = lineCounter  # The line numbers are 1-based
+    lineCounter = lineCounter + 1   #increment machine lines as added
     #new_line = 'This is the new text for line 3\n'
 
     #reads all lines
@@ -61,8 +61,8 @@ def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
         lines = f.readlines()
 
     #modify specific line
-    if line_number - 1 < len(lines):
-        lines[line_number - 1] = new_line
+    if lineCounter - 1 < len(lines):
+        lines[lineCounter - 1] = new_line
     else:
         lines.append(new_line)  # Append the new line if the file has fewer lines
 
@@ -75,7 +75,7 @@ def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
 #-----------------------------------------------------
 def assembler(i):
     #Incrementing is temporary, their is one in the other file
-    lineCounter = lineCounter + 1   #increments for each line : REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    #lineCounter = lineCounter + 1   #increments for each line : REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     with open('assembly.txt', 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
@@ -84,11 +84,23 @@ def assembler(i):
 
         
 
-    if (line2c[0] == ""):  #Check the varibles
-        writeBack(lineCounter, 'unsigned a b c')    #change to conversion, but those are just memory addresses
+    if (line2c[0] == "a"):  #Check the varibles
+        writeBack(lineCounter, 'FF 0005')    #FF (Variable) 0000 (Memory Location)
 
-    elif (line2c[0] == ""):
-        writeBack(lineCounter, 'signed x y z')
+    elif (line2c[0] == "b"):
+        writeBack(lineCounter, 'FF 0006')
+
+    elif (line2c[0] == "c"):
+        writeBack(lineCounter, 'FF 0007')
+
+    elif (line2c[0] == "x"):
+        writeBack(lineCounter, 'FF 0008')
+
+    elif (line2c[0] == "y"):
+        writeBack(lineCounter, 'FF 0009')
+
+    elif (line2c[0] == "z"):
+        writeBack(lineCounter, 'FF 0010')
 
     elif (line2c[0] == "mov"): 
         #this is where I'd add in a check for if a register was changed
@@ -146,9 +158,10 @@ def assembler(i):
         var4 = '00 ' + var1 + var2 
         writeBack(lineCounter, var4)
 
-    elif (line2c[0] == "add"):
+    elif (line2c[0] == "add"):  # add xxxx xxxx xxxx : 0 1 2 3
         var1 = line2c[1]
         var2 = line2c[2]
+        var3 = line2c[3]
 
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -173,12 +186,24 @@ def assembler(i):
         else:
             var2 = '0000 '
 
-        var4 = 'A ' + var1 + var2
+        if (var3 == "eax"):
+            var3 = '0001'
+        elif (var3 == "ebx"):
+            var3 = '0002'
+        elif (var3 == "ecx"):
+            var3 = '0003'
+        elif (var3 == "edx"):
+            var3 = '0004'
+        else:
+            var3 = '0000'
+
+        var4 = 'A ' + var1 + var2 + var3
         writeBack(lineCounter, var4)
        
     elif (line2c[0] == "sub"):
         var1 = line2c[1]
         var2 = line2c[2]
+        var3 = line2c[3]
 
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -203,12 +228,24 @@ def assembler(i):
         else:
             var2 = '0000 '
 
-        var4 = 'B ' + var1 + var2
+        if (var3 == "eax"):
+            var3 = '0001'
+        elif (var3 == "ebx"):
+            var3 = '0002'
+        elif (var3 == "ecx"):
+            var3 = '0003'
+        elif (var3 == "edx"):
+            var3 = '0004'
+        else:
+            var3 = '0000'
+
+        var4 = 'B ' + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "mult"):
         var1 = line2c[1]
         var2 = line2c[2]
+        var3 = line2c[3]
 
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -233,12 +270,24 @@ def assembler(i):
         else:
             var2 = '0000 '
 
-        var4 = 'C ' + var1 + var2
+        if (var3 == "eax"):
+            var3 = '0001'
+        elif (var3 == "ebx"):
+            var3 = '0002'
+        elif (var3 == "ecx"):
+            var3 = '0003'
+        elif (var3 == "edx"):
+            var3 = '0004'
+        else:
+            var3 = '0000'
+
+        var4 = 'C ' + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "div"):
         var1 = line2c[1]
         var2 = line2c[2]
+        var3 = line2c[3]
 
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -263,15 +312,38 @@ def assembler(i):
         else:
             var2 = '0000 '
 
-        var4 = 'D ' + var1 + var2
+        if (var3 == "eax"):
+            var3 = '0001'
+        elif (var3 == "ebx"):
+            var3 = '0002'
+        elif (var3 == "ecx"):
+            var3 = '0003'
+        elif (var3 == "edx"):
+            var3 = '0004'
+        else:
+            var3 = '0000'
+
+        var4 = 'D ' + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "addadd"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -305,15 +377,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'AA ' + var1 + var2 + var3
+        var4 = 'AA ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "addsub"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -347,15 +431,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'AB ' + var1 + var2 + var3
+        var4 = 'AB ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "adddiv"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -389,15 +485,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'AC ' + var1 + var2 + var3
+        var4 = 'AC ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "addmult"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -431,15 +539,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'AD ' + var1 + var2 + var3
+        var4 = 'AD ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "subadd"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -473,15 +593,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'BA ' + var1 + var2 + var3
+        var4 = 'BA ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "subsub"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -515,15 +647,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'BB ' + var1 + var2 + var3
+        var4 = 'BB ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "submult"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -557,15 +701,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'BC ' + var1 + var2 + var3
+        var4 = 'BC ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "subdiv"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -599,15 +755,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'BD ' + var1 + var2 + var3
+        var4 = 'BD '+ var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "multadd"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -641,15 +809,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'CA ' + var1 + var2 + var3
+        var4 = 'CA '+ var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "multsub"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -683,15 +863,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'CB ' + var1 + var2 + var3
+        var4 = 'CB ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "multmult"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -725,15 +917,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'CC ' + var1 + var2 + var3
+        var4 = 'CC ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "multdiv"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -767,15 +971,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'CD ' + var1 + var2 + var3
+        var4 = 'CD ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "divadd"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -809,15 +1025,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'DA ' + var1 + var2 + var3
+        var4 = 'DA ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "divsub"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -851,15 +1079,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'DB ' + var1 + var2 + var3
+        var4 = 'DB ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "divmult"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -893,15 +1133,27 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'DC ' + var1 + var2 + var3
+        var4 = 'DC ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "divdiv"):
-        var1 = line2c[1]
-        var2 = line2c[2]
-        var3 = line2c[3]
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
 
         #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var1 = '0000 '
+
         if (var1 == "eax"):
             var1 = '0001 '
         elif (var1 == "ebx"):
@@ -935,7 +1187,7 @@ def assembler(i):
         else:
             var3 = '0000'
 
-        var4 = 'DD ' + var1 + var2 + var3
+        var4 = 'DD ' + var0 + var1 + var2 + var3
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == "cmp"):
