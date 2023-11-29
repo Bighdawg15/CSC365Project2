@@ -71,3 +71,22 @@ def csvCreate():
 #for i in range(0, 4, +1): # start, stop, increment : (0, 4, -1 or +1)
      # do something
 
+#------------------------------------------
+#idea functions (Probably won't use, but keeping in case)
+#------------------------------------------
+#unsigned range: 0 to 256
+#signed range: -128 to 127
+
+
+
+def unsignedSigned(unsigned):
+    if unsigned > 127:
+        return unsigned - 256
+    else:
+        return unsigned
+
+def signedUnsigned(signed):
+    if signed < 0:
+        return signed + 256
+    else:
+        return signed

@@ -1,23 +1,4 @@
 #-----------------------------------------------------------------------------------------------------
-#Rules                  : Not very helpful
-#-----------------------------------------------------------------------------------------------------
-#Lines 1,2: Variables are declare at the top of the program. First unsigned, then signed. 
-#           All variables are implicitly of type 8-bit integer. No need to declare that.  
-#           Only 3 unsigned variables are allowed: a, b, c.  
-#           Only 3 signed variables are allowed: x, y, z. 
-#Lines 4-9: One assignment is performed per line. Don’t write b = 0, x = 4 etc 
-#Lines 5,6,12,14: The four arithmetic operations allowed are + - * / 
-#Line 6: A single line can have max of two arithmetic operations. Operators are evaluated left to right. 
-#        For example, Line 6 means c = (b * a) / 10 
-#Line 6: Only the integer part of an operation is preserved. So the output of Line 6 right-side is (18*3)/10 = 5 
-#Lines 11,16: Two types of conditional structures are allowed: if-else and while loop. No nested structures. 
-#Lines 11-21: Indentation indicates whether a line is inside an if-else or a while loop 
-#Lines 11,16: Only a single relational operator is allowed in if and while statements. 
-#             So if x > 10 && y < 5 is not allowed. 
-#Lines 17-21: The print command is the only mechanism to output a value. 
-#             There is no user input command, i.e. a cin equivalent 
-
-#-----------------------------------------------------------------------------------------------------
 #NOTES:
 #-----------------------------------------------------------------------------------------------------
 #If a varible was signed or unsigned. Would i need to have a manual check for if its outside of that number range so that it gives an error message?
@@ -28,24 +9,28 @@
 #variables/imports
 #-----------------------------------------------------------------------------------------------------
 import re
-
-#other files with needed functions
 import ASM
 import CSV
 
+
+#dummy variable
 lineCounterASM = '' #their are 389 uses of this function, that I'll clean up later
 
 
-
+#variables
 i = 0
 lineCounterASMR = 0 #for the ASM
 whileCheck = 'false'
 ifCheck = 'false'
 elseCheck = 'false'
-#lineCounterComp = 0 #for the HLC
-#lineCounterM = 0 #machine code
 indentCheck = 'false'
-fileName = 'test.txt'
+fileName = 'test.txt'   #might need to just have the name depend on the funciton imports like : compiler(fileName)
+
+#arrays
+addressArray = []   #keeps track of address's
+modReg = []         #register updates
+modFlags = []       #flag updates
+
 
 #only positive                  Range: 0 to 255  (unsigned)
 a = 0
@@ -58,68 +43,16 @@ y = 0
 z = 0
 
 #registers
-#eax = 0
-#ebx = 0
-#ecx = 0
-#edx = 0
+eax = 0
+ebx = 0
+ecx = 0
+edx = 0
 
 #placeHolder registers (to check for changes)
 eax2 = 0
 ebx2 = 0
 ecx2 = 0
 edx2 = 0
-
-
-
-#------------------------------------------------------------------
-#Storage Management for Assembly
-#------------------------------------------------------------------
-stackCounter = 0
-
-class Stack:
-    def __init__(self):
-        self.stack = [] #blank array to represent
-
-    def push(self, register):
-        stackCounter = stackCounter + 1 #To know where things located
-        self.stack.append(register)
-
-    def pop(self):
-        stackCounter = stackCounter - 1 #To know where things are located
-        if len(self.stack) < 1:
-            return None
-        return self.stack.pop()
-
-    #stack = Stack() #create stack
-
-    #stack.push('eax') #push variable
-
-    #stack.pop()  #pop : output %eax : last in
-
-
-
-#Memory:
-    #eax = 0001
-    #ebx = 0002
-    #ecx = 0003
-    #edx = 0004
-    #a = 0005
-    #b = 0006
-    #c = 0007
-    #x = 0008
-    #y = 0009
-    #z = 0010
-    #line 0 = 0011 -> Increments up for storage
-#-----------------------------------------------------------------------------------------------------
-#flags
-#-----------------------------------------------------------------------------------------------------
-#make a function to be ran after each step for the flags to be updated
-#reset at beginning of function, output to csv file
-#maybe make seperate file
-overflowF = 0
-zeroF = 0
-carryF = 0 #only true, when a signed/unsigned is borrowed (goes out of range, but is in differnt range): like 1011 is 8 4 2 1 : for signed its -8 4 2 1
-signF = 0
 
 #-----------------------------------------------------
 #writeASM fucntion (for HLC to ASM)
@@ -242,6 +175,23 @@ def justPrint(placeHolder):
 
     else:
         print('justPrint: Temp Error')
+
+    return 0
+
+#-----------------------------------------------------------------------------------------------------
+#flags
+#-----------------------------------------------------------------------------------------------------
+#make a function to be ran after each step for the flags to be updated
+#reset at beginning of function, output to csv file
+#maybe make seperate file
+overflowF = 0
+zeroF = 0
+carryF = 0 #only true, when a signed/unsigned is borrowed (goes out of range, but is in differnt range): like 1011 is 8 4 2 1 : for signed its -8 4 2 1
+signF = 0
+
+def flagCarrier():
+    
+
 
     return 0
 
@@ -1520,7 +1470,42 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
     else:
         print("MathStuff: Temp Length is not right")
 
-    return eax, ebx, ecx, edx, a, b, c, x, y, z
+    #flags will be thrown here
+    #checks variables after math, then converts them to whats it'd actually read
+    if (placeHolder[0] == 'a'): #unsigned range: 0 to 255
+        if (a < 0):
+            a = a-2**8  #signed = unsigned-2**8
+        elif (a > 255):
+            print('MathStuff: A is too big')
+    elif (placeHolder[0] == 'b'): #unsigned range: 0 to 255
+        if (b < 0):
+            b = b-2**8  #signed = unsigned-2**8
+        elif (b > 255):
+            print('MathStuff: B is too big')
+    elif (placeHolder[0] == 'c'): #unsigned range: 0 to 255
+        if (c < 0):
+            c = c-2**8  #signed = unsigned-2**8
+        elif (c > 255):
+            print('MathStuff: C is too big')
+    elif (placeHolder[0] == 'x'): #signed range: -128 to 127
+        if (x > 127):
+            x = x+2**8 #unsigned = signed+2**8
+        elif (x < -128):
+            print('MathStuff: X is too small')
+    elif (placeHolder[0] == 'y'): #signed range: -128 to 127
+        if (y > 127):
+            y = y+2**8 #unsigned = signed+2**8
+        elif (y < -128):
+            print('MathStuff: Y is too small')
+    elif (placeHolder[0] == 'z'): #signed range: -128 to 127
+        if (z > 127):
+            z = z+2**8 #unsigned = signed+2**8
+        elif (z < -128):
+            print('MathStuff: Z is too small')
+    else:
+        print('MathStuff: unsigned/signed part check')
+
+    return 0
 
 #-----------------------------------------------------------------------------------------------------
 #indent checker 
@@ -1589,17 +1574,7 @@ def betaParser (i):
         mathStuff(placeHolder)    
 
     elif (placeHolder[0] == "if"): #Ex. y = 12 or y <= 3 : 1 2 3
-        #worry about indentation
-        #check for specific variable
         #check for type: <, >, <=, >=, =, !=
-        
-        #Checks for variable, then sign, then it uses the statement to create a variable that changes whats read
-        #ifCheck: Can = 'true' or 'else'
-
-        #how does it remember the address for jump
-        #maybe incorporate with the counting system
-        #typically creaets labels and jumps from that
-
 
         #prints statement to assembly.txt
         var4 = 'cmp ' + placeHolder[1] + ', ' + placeHolder[3]
@@ -1873,7 +1848,6 @@ def betaParser (i):
 
         else:
             print('Compiler: Error for ifCheck creation')
-    #if statments off by one placeholder
 
     elif (placeHolder[0] == "else"):
         #make labels in assembly 
@@ -2430,72 +2404,57 @@ def betaParser (i):
         else:
             print('Compiler: Error for whileCheck creation')
 
-
-
-
-
-
-            #checks if statment is still true after each line, if it is. Keep going , otherwise it changes whileCheck to false
+            #checks if statment is still true after each line, if it is. Keep going, otherwise it changes whileCheck to false
         
     else: 
         whileCounter = 0
 
-
     return 0
 
 #---------------------------------------------------------------------
-#Start to run stuff
+#Start to run stuff together
 #---------------------------------------------------------------------
+def projectCompiler():
+    global whileCheck, whileCounter, ifCheck, elseCheck, fileName, regChanges
+    while (i >= 21):    #i = line number currently on
+        #how do I know how long he file is?
+        
+        #function to check file number
+        indentCheck = checkIndent(fileName, i)
 
-#i = 0   #Define  i, which is correspondent to line #
-#indentCheck = 'false'
-#ifCheck = 'false'
-#whileCheck = 'false'
+        if (indentCheck == '\t'):  #implement indent checker
+            betaParser(i)
 
-#how to get variables outside of functions
+        elif (whileCheck == 'true'):
+            #resets while so that the lineCounterASMR and whileCounter are back where they started
+            lineCounterASMR = lineCounterASMR - whileCounter #resets linecounterASMR to where while conversion started
+            i = i - whileCounter - 1 # -1 because this check is an i : resets i to go back to HLC line
+        
+        else:
+            #if this ends up in a funcion add global varibales
+            #reset so they dont mistake them
+            ifCheck = 'false'
+            whileCheck = 'false'
+            elseCheck = 'false'
+
+            betaParser(i)
+            print('Loop Error')
+            
 
 
-
-#probably make a function that runs all
-while (i >= 21):    #i = line number currently on
-    #how do I know how long he file is?
     
-    #function to check file number
-    checkIndent(fileName, i)
-
-    if (indentCheck == '\t'):  #implement indent checker
-        betaParser(i)
-
-    elif (whileCheck == 'true'):
-        #resets while so that the lineCounterASMR and whileCounter are back where they started
-        lineCounterASMR = lineCounterASMR - whileCounter #resets linecounterASMR to where while conversion started
-        i = i - whileCounter - 1 # -1 because this check is an i : resets i to go back to HLC line
-       
-
-    else:
-        #if this ends up in a funcion add global varibales
-        ifCheck = 'false'
-        whileCheck = 'false'
-        elseCheck = 'false'
-
-        betaParser(i)
-        print('Loop Error')
-        #reset so they dont mistake them
+        
         
 
-        #lineCounterComp = lineCounterComp + 1   #increments lines instead of trying to do them
-        #betaParser(i)   #Parse line
-                        #Function to conver to assembly, also prints conversion to text file
-                        #Converts ASM to Machine Code (Just a loop to check each assembly line conversion and printing to seperate text file)
-
-    #make csv file in here, line by line
+        #at the end, print out the variables results
+        i = i + 1   #Loop ends here and restarts
     
-    #might be easier in the function
-    regCheck()   #make sure it checks in the correct loop
+    
+    regChanges = regCheck()   #make sure it checks in the correct loop
+    modReg.append(regChanges)
+    
 
-    #might need to make seperate counters for both the assembly and the compiler
-
-    #at the end, print out the variables results
-    i = i + 1   #Loop ends here and restarts
-
+    #make array that stores all HLC lines according to assembly line conversion
+    #instead of .txt
+    return 0
 

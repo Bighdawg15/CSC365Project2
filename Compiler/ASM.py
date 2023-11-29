@@ -17,20 +17,11 @@ class Stack:
             return None
         return self.stack.pop()
 
-#How it works:
+    #stack = Stack() #create stack
 
-#create a stack
-    #stack = Stack() 
+    #stack.push('eax') #push variable
 
-#Push registers to the stack
-    #stack.push('eax')
-    #stack.push('ebx')
-    #stack.push('ecx')
-
-#How to Pop registers from the stack (just an example)
-    #print(stack.pop())  # Outputs: %ecx
-    #print(stack.pop())  # Outputs: %ebx
-    #print(stack.pop())  # Outputs: %eax
+    #stack.pop()  #pop : output %eax : last in
 
 
 
@@ -39,6 +30,12 @@ class Stack:
     #ebx = 0002
     #ecx = 0003
     #edx = 0004
+    #a = 0005
+    #b = 0006
+    #c = 0007
+    #x = 0008
+    #y = 0009
+    #z = 0010
     #line 0 = 0011 -> Increments up for storage
 
 #---------------------------------------------------
@@ -77,9 +74,6 @@ def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
 
 #-----------------------------------------------------
 def assembler(i):
-    #Incrementing is temporary, their is one in the other file
-    #lineCounter = lineCounter + 1   #increments for each line : REMOVE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
     with open('assembly.txt', 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
         line2b = line2[i]   #saves specified line to variable
