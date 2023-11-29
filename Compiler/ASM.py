@@ -51,7 +51,7 @@ i = 1
 #---------------------------------------------------
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
-def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
+def writeBack (new_line):  #can't just append 1 line apparently
     global lineCounterM #global, other counter was mistake, too far gone
     lineCounterM = lineCounterM + 1   #increment machine lines as added
     #new_line = 'This is the new text for line 3\n'
@@ -73,29 +73,29 @@ def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
     return 0
 
 #-----------------------------------------------------
-def assembler(i):
-    with open('assembly.txt', 'r') as g:    #opens file that is going to be converted
+def assembler(fileName, i):
+    with open(fileName, 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
         line2b = line2[i]   #saves specified line to variable
         line2c = re.split('[, ]', line2b) #splits line up at whitespaces and ,        {If this doesnt work do 'line2b.split() + line2b.split(',')}
 
     if (line2c[0] == "a"):  #Check the varibles
-        writeBack(lineCounter, 'FF 0005')    #FF (Variable) 0000 (Memory Location)
+        writeBack('FF 0005')    #FF (Variable) 0000 (Memory Location)
 
     elif (line2c[0] == "b"):
-        writeBack(lineCounter, 'FF 0006')
+        writeBack('FF 0006')
 
     elif (line2c[0] == "c"):
-        writeBack(lineCounter, 'FF 0007')
+        writeBack('FF 0007')
 
     elif (line2c[0] == "x"):
-        writeBack(lineCounter, 'FF 0008')
+        writeBack('FF 0008')
 
     elif (line2c[0] == "y"):
-        writeBack(lineCounter, 'FF 0009')
+        writeBack('FF 0009')
 
     elif (line2c[0] == "z"):
-        writeBack(lineCounter, 'FF 0010')
+        writeBack('FF 0010')
 
     elif (line2c[0] == "mov"): 
         #this is where I'd add in a check for if a register was changed
@@ -151,7 +151,7 @@ def assembler(i):
 
 
         var4 = '00 ' + var1 + var2 
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "add"):  # add xxxx xxxx xxxx : 0 1 2 3
         var1 = line2c[1]
@@ -193,7 +193,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'A ' + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
        
     elif (line2c[0] == "sub"):
         var1 = line2c[1]
@@ -235,7 +235,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'B ' + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "mult"):
         var1 = line2c[1]
@@ -277,7 +277,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'C ' + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "div"):
         var1 = line2c[1]
@@ -319,7 +319,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'D ' + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "addadd"):
         var0 = line2c[1]
@@ -373,7 +373,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'AA ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "addsub"):
         var0 = line2c[1]
@@ -427,7 +427,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'AB ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "adddiv"):
         var0 = line2c[1]
@@ -481,7 +481,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'AC ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "addmult"):
         var0 = line2c[1]
@@ -535,7 +535,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'AD ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "subadd"):
         var0 = line2c[1]
@@ -589,7 +589,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'BA ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "subsub"):
         var0 = line2c[1]
@@ -643,7 +643,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'BB ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "submult"):
         var0 = line2c[1]
@@ -697,7 +697,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'BC ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "subdiv"):
         var0 = line2c[1]
@@ -751,7 +751,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'BD '+ var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "multadd"):
         var0 = line2c[1]
@@ -805,7 +805,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'CA '+ var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "multsub"):
         var0 = line2c[1]
@@ -859,7 +859,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'CB ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "multmult"):
         var0 = line2c[1]
@@ -913,7 +913,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'CC ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "multdiv"):
         var0 = line2c[1]
@@ -967,7 +967,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'CD ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "divadd"):
         var0 = line2c[1]
@@ -1021,7 +1021,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'DA ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "divsub"):
         var0 = line2c[1]
@@ -1075,7 +1075,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'DB ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "divmult"):
         var0 = line2c[1]
@@ -1129,7 +1129,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'DC ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "divdiv"):
         var0 = line2c[1]
@@ -1183,7 +1183,7 @@ def assembler(i):
             var3 = '0000'
 
         var4 = 'DD ' + var0 + var1 + var2 + var3
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "cmp"):
         var1 = line2c[2]
@@ -1214,35 +1214,35 @@ def assembler(i):
 
 
         var4 = 'CC ' + var1 + var2
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jmp"):
         var4 = 'E0 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jl"):
         var4 = 'E1 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jle"):
         var4 = 'E2 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jg"):
         var4 = 'E3 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jge"):
         var4 = 'E4 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "jne"):
         var4 = 'E5 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "je"):
         var4 = 'E6 ' + line2c[1]
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "push"):
         var1 = line2c[1]
@@ -1260,7 +1260,7 @@ def assembler(i):
             var1 = '0000'   #Might actual cause an error
 
         var4 = 'FA ' + var1
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == "pop"):
         var1 = line2c[1]
@@ -1278,21 +1278,20 @@ def assembler(i):
             var1 = '0000'   #Might actual cause an error
 
         var4 = 'FF' + var1
-        writeBack(lineCounter, var4)
+        writeBack(var4)
 
     elif (line2c[0] == ""): #checks for blank lines : Don't know if we actually need this
-        writeBack(lineCounter, "")
+        writeBack("")
 
     elif (line2c[0].endswith == ":"):
         global array
         array.append(lineCounterM)
-
 
     else:
         #error handling
         print("Error at assembler at line ", lineCounterM)
     
 
-    #idea of putting a blank row for csv indication : writeBack(lineCounter, '')
+    #idea of putting a blank row for csv indication : writeBack('')
     return 0
 

@@ -57,7 +57,7 @@ edx2 = 0
 #-----------------------------------------------------
 #writeASM fucntion (for HLC to ASM)
 #-----------------------------------------------------
-def writeASM (lineCounterASM, new_line):    #doeslinCounterASM need to be imported?
+def writeASM (new_line):    #doeslinCounterASM need to be imported?
     global lineCounterASMR      #to many statements already include the other import
     lineCounterASMR = lineCounterASMR + 1  # increments the line for each time its added to for ASM
     #new_line = 'This is the new text for line 3\n'
@@ -112,13 +112,13 @@ def justPrint(placeHolder):
 
     if (temp == 3): #b = 3 : 0 1 2
         var4 = 'mov ' + placeHolder[0] + ', ' + placeHolder[2]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
     elif (temp == 5): #y = a + b : 0 1 2 3 4 
         var4 = 'mov eax, ' + placeHolder[2]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = 'mov ebx, ' + placeHolder[4]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
         if (placeHolder[3] == '+'):
             var4 = 'add eax eax ebx'
@@ -131,17 +131,17 @@ def justPrint(placeHolder):
         else:
             print('NoPrint: Error Temp5')
 
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = 'mov ' + placeHolder[0] + ', eax'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
     elif (temp == 7): #y = a + b - c : 0 1 2 3 4 5 6 
         var4 = 'mov eax, ' + placeHolder[2]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = 'mov ebx, ' + placeHolder[4]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = 'mov ebc, ' + placeHolder[6]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         
         if (placeHolder[3] == '+'):
             p1 = 'add'
@@ -168,10 +168,10 @@ def justPrint(placeHolder):
         temp2 = p1 + p2
 
         var4 = temp2 + ' eax eax ebx ecx'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
         var4 = 'mov ' + placeHolder[0] + ', eax'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
     else:
         print('justPrint: Temp Error')
@@ -209,265 +209,265 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[2] == 'a'):
                 eax = a
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, a')
+                writeASM('mov a, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, b')
+                writeASM('mov a, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, c')
+                writeASM('mov a, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, x')
+                writeASM('mov a, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, y')
+                writeASM('mov a, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 a = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mov eax, z')
+                writeASM('mov a, eax')
 
             else:
                 eax = placeHolder[2]
                 a = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM(var4)
+                writeASM('mov a, eax')
 
         elif (placeHolder[0] == 'b'):
             if (placeHolder[2] == 'a'):
                 eax = a
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, a')
+                writeASM('mov b, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, b')
+                writeASM('mov b, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, c')
+                writeASM('mov b, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, x')
+                writeASM('mov b, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, y')
+                writeASM('mov b, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 b = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mov eax, z')
+                writeASM('mov b, eax')
 
             else:
                 eax = placeHolder[2]
                 b = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM(var4)
+                writeASM('mov b, eax')
 
         elif (placeHolder[0] == 'c'):
             if (placeHolder[2] == 'a'):
                 eax = a
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, a')
+                writeASM('mov c, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, b')
+                writeASM('mov c, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, c')
+                writeASM('mov c, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, x')
+                writeASM('mov c, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, y')
+                writeASM('mov c, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 c = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mov eax, z')
+                writeASM('mov c, eax')
 
             else:
                 eax = placeHolder[2]
                 c = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM(var4)
+                writeASM('mov c, eax')
 
         elif (placeHolder[0] == 'x'):
             if (placeHolder[2] == 'a'):
                 eax = a
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, a')
+                writeASM('mov x, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, b')
+                writeASM('mov x, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, c')
+                writeASM('mov x, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, x')
+                writeASM('mov x, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, y')
+                writeASM('mov x, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 x = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mov eax, z')
+                writeASM('mov x, eax')
 
             else:
                 eax = placeHolder[2]
                 x = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM(var4)
+                writeASM('mov x, eax')
 
         elif (placeHolder[0] == 'y'):
             if (placeHolder[2] == 'a'):
                 eax = a
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, a')
+                writeASM('mov y, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, b')
+                writeASM('mov y, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, c')
+                writeASM('mov y, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, x')
+                writeASM('mov y, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, y')
+                writeASM('mov y, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 y = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mov eax, z')
+                writeASM('mov y, eax')
 
             else:
                 eax = placeHolder[2]
                 y = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM(var4)
+                writeASM('mov y, eax')
 
         elif (placeHolder[0] == 'z'):
             if (placeHolder[2] == 'a'):
                 eax = a
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, a')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, a')
+                writeASM('mov z, eax')
 
             elif (placeHolder[2] == 'b'):
                 eax = b
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, b')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, b')
+                writeASM('mov z, eax')
 
             elif (placeHolder[2] == 'c'):
                 eax = c
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, c')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, c')
+                writeASM('mov z, eax')
 
             elif (placeHolder[2] == 'x'):
                 eax = x
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, x')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, x')
+                writeASM('mov z, eax')
 
             elif (placeHolder[2] == 'y'):
                 eax = y
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, y')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, y')
+                writeASM('mov z, eax')
 
             elif (placeHolder[2] == 'z'):
                 eax = z
                 z = eax
-                writeASM(lineCounterASM, 'mov eax, z')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mov eax, z')
+                writeASM('mov z, eax')
 
             else:
                 eax = placeHolder[2]
                 z = eax
                 var4 = 'mov eax, ' + placeHolder[2]
-                writeASM(lineCounterASM, var4)
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM(var4)
+                writeASM('mov z, eax')
 
         else:
             print('Compiler: Error for temp3 in abc')
@@ -476,50 +476,50 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
         #move varible to register eax
         if (placeHolder[2] == 'a'): 
             eax = a
-            writeASM(lineCounterASM, 'mov eax, a')
+            writeASM('mov eax, a')
         elif (placeHolder[2] == 'b'):
             eax = b
-            writeASM(lineCounterASM, 'mov eax, b')
+            writeASM('mov eax, b')
         elif (placeHolder[2] == 'c'):
             eax = c
-            writeASM(lineCounterASM, 'mov eax, c')
+            writeASM('mov eax, c')
         elif (placeHolder[2] == 'x'):
             eax = x
-            writeASM(lineCounterASM, 'mov eax, x')
+            writeASM('mov eax, x')
         elif (placeHolder[2] == 'y'):
             eax = y
-            writeASM(lineCounterASM, 'mov eax, y') 
+            writeASM('mov eax, y') 
         elif (placeHolder[2] == 'z'):
             eax = z
-            writeASM(lineCounterASM, 'mov eax, z')
+            writeASM('mov eax, z')
         else:
             eax = placeHolder[2]
             var4 = 'mov eax, ' + placeHolder[2]
-            writeASM(lineCounterASM, var4)
+            writeASM(var4)
 
         #move varible to register ebx
         if (placeHolder[4] == 'a'):
             ebx = a
-            writeASM(lineCounterASM, 'mov ebx, a')
+            writeASM('mov ebx, a')
         elif (placeHolder[4] == 'b'):
             ebx = b
-            writeASM(lineCounterASM, 'mov ebx, b')
+            writeASM('mov ebx, b')
         elif (placeHolder[4] == 'c'):
             ebx = c
-            writeASM(lineCounterASM, 'mov ebx, c')
+            writeASM('mov ebx, c')
         elif (placeHolder[4] == 'x'):
             ebx = x
-            writeASM(lineCounterASM, 'mov ebx, x')
+            writeASM('mov ebx, x')
         elif (placeHolder[4] == 'y'):
             ebx = y
-            writeASM(lineCounterASM, 'mov ebx, y')
+            writeASM('mov ebx, y')
         elif (placeHolder[4] == 'z'):
             ebx = c
-            writeASM(lineCounterASM, 'mov ebx, z')
+            writeASM('mov ebx, z')
         else:
             ebx = placeHolder[4]
             var4 = 'mov ebx, ' + placeHolder[4]
-            writeASM(lineCounterASM, var4)
+            writeASM(var4)
 
         #does arithmetic and writes to txt assembly conversion
 
@@ -527,26 +527,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 a = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov a, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 a = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov a, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 a = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov a, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 a = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov a, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov a, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')
@@ -555,26 +555,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 b = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov b, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 b = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov b, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 b = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov b, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 b = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov b, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov b, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')                
@@ -583,26 +583,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 c = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov c, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 c = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov c, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 c = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov c, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 c = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov c, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov c, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')   
@@ -611,26 +611,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 x = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov x, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 x = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov x, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 x = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov x, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 x = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov x, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov x, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')            
@@ -639,26 +639,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 y = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov y, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 y = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov y, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 y = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov y, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 y = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov y, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov y, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')
@@ -667,26 +667,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
             if (placeHolder[3] == '+'):
                 eax = eax + ebx
                 z = eax
-                writeASM(lineCounterASM, 'add eax eax ebx')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('add eax eax ebx')
+                writeASM('mov z, eax')
 
             elif (placeHolder[3] == '-'):
                 eax = eax - ebx
                 z = eax
-                writeASM(lineCounterASM, 'sub eax eax ebx')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('sub eax eax ebx')
+                writeASM('mov z, eax')
 
             elif (placeHolder[3] == '*'):
                 eax = eax * ebx
                 z = eax
-                writeASM(lineCounterASM, 'mult eax eax ebx')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('mult eax eax ebx')
+                writeASM('mov z, eax')
 
             elif (placeHolder[3] == '/'):
                 eax = eax / ebx
                 z = eax
-                writeASM(lineCounterASM, 'div eax eax ebx')
-                writeASM(lineCounterASM, 'mov z, eax')
+                writeASM('div eax eax ebx')
+                writeASM('mov z, eax')
 
             else:
                 print('Compiler: Error for Operator type in abc')
@@ -698,74 +698,74 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
         #move varible to register eax
         if (placeHolder[2] == 'a'): 
             eax = a
-            writeASM(lineCounterASM, 'mov eax, a')
+            writeASM('mov eax, a')
         elif (placeHolder[2] == 'b'):
             eax = b
-            writeASM(lineCounterASM, 'mov eax, b')
+            writeASM('mov eax, b')
         elif (placeHolder[2] == 'c'):
             eax = c
-            writeASM(lineCounterASM, 'mov eax, c')
+            writeASM('mov eax, c')
         elif (placeHolder[2] == 'x'):
             eax = x
-            writeASM(lineCounterASM, 'mov eax, x')
+            writeASM('mov eax, x')
         elif (placeHolder[2] == 'y'):
             eax = y
-            writeASM(lineCounterASM, 'mov eax, y') 
+            writeASM('mov eax, y') 
         elif (placeHolder[2] == 'z'):
             eax = z
-            writeASM(lineCounterASM, 'mov eax, z')
+            writeASM('mov eax, z')
         else:
             eax = placeHolder[2]
             var4 = 'mov eax, ' + placeHolder[2]
-            writeASM(lineCounterASM, var4)
+            writeASM(var4)
 
         #move varible to register ebx
         if (placeHolder[4] == 'a'):
             ebx = a
-            writeASM(lineCounterASM, 'mov ebx, a')
+            writeASM('mov ebx, a')
         elif (placeHolder[4] == 'b'):
             ebx = b
-            writeASM(lineCounterASM, 'mov ebx, b')
+            writeASM('mov ebx, b')
         elif (placeHolder[4] == 'c'):
             ebx = c
-            writeASM(lineCounterASM, 'mov ebx, c')
+            writeASM('mov ebx, c')
         elif (placeHolder[4] == 'x'):
             ebx = x
-            writeASM(lineCounterASM, 'mov ebx, x')
+            writeASM('mov ebx, x')
         elif (placeHolder[4] == 'y'):
             ebx = y
-            writeASM(lineCounterASM, 'mov ebx, y')
+            writeASM('mov ebx, y')
         elif (placeHolder[4] == 'z'):
             ebx = c
-            writeASM(lineCounterASM, 'mov ebx, z')
+            writeASM('mov ebx, z')
         else:
             ebx = placeHolder[4]
             var4 = 'mov ebx, ' + placeHolder[4]
-            writeASM(lineCounterASM, var4)
+            writeASM(var4)
     
         #move varible to register ecx
         if (placeHolder[6] == 'a'):
             ecx = a
-            writeASM(lineCounterASM, 'mov ecx, a')
+            writeASM('mov ecx, a')
         elif (placeHolder[6] == 'b'):
             ecx = b
-            writeASM(lineCounterASM, 'mov ecx, b')
+            writeASM('mov ecx, b')
         elif (placeHolder[6] == 'c'):
             ecx = c
-            writeASM(lineCounterASM, 'mov ecx, c')
+            writeASM('mov ecx, c')
         elif (placeHolder[6] == 'x'):
             ecx = x
-            writeASM(lineCounterASM, 'mov ecx, x')
+            writeASM('mov ecx, x')
         elif (placeHolder[6] == 'y'):
             ecx = y
-            writeASM(lineCounterASM, 'mov ecx, y')
+            writeASM('mov ecx, y')
         elif (placeHolder[6] == 'z'):
             ecx = c
-            writeASM(lineCounterASM, 'mov ecx, z')
+            writeASM('mov ecx, z')
         else:
             ecx = placeHolder[6]
             var4 = 'mov ecx, ' + placeHolder[6]
-            writeASM(lineCounterASM, var4)       
+            writeASM(var4)       
     
         #does double arithmetic and converts to assembly
         if (placeHolder[0] == 'a'): # Y = X + Z + 3 : 0 1 2 3 4 5 6
@@ -773,26 +773,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     a = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     a = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     a = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     a = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -801,26 +801,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     a = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     a = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     a = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     a = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -829,26 +829,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     a = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     a = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     a = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     a = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -857,26 +857,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     a = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     a = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     a = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     a = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -889,26 +889,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     b = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     b = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     b = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     b = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -917,26 +917,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     b = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     b = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     b = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     b = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -945,26 +945,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     b = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     b = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     b = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     b = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -973,26 +973,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     b = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     b = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     b = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     b = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov b, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov b, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1005,26 +1005,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     c = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     c = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     c = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     c = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1033,26 +1033,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     c = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     c = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     c = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     c = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1061,26 +1061,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     c = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     c = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     c = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     c = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1089,26 +1089,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     c = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     c = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     c = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     c = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov c, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov c, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1121,26 +1121,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     x = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     x = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     x = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     x = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1149,26 +1149,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     x = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     x = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     x = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     x = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov a, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov a, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1177,26 +1177,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     x = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     x = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     x = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     x = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1205,26 +1205,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     x = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     x = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     x = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     x = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov x, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov x, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1237,26 +1237,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     y = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     y = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     y = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     y = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1265,26 +1265,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     y = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     y = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     y = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     y = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1293,26 +1293,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     y = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     y = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     y = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     y = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1321,26 +1321,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     y = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     y = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     y = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     y = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov y, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov y, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1353,26 +1353,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax + ebx + ecx
                     z = eax
-                    writeASM(lineCounterASM, 'addadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('addadd eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax + ebx - ecx
                     z = eax
-                    writeASM(lineCounterASM, 'addsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('addsub eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax + ebx * ecx
                     z = eax
-                    writeASM(lineCounterASM, 'addmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('addmult eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax + ebx / ecx
                     z = eax
-                    writeASM(lineCounterASM, 'adddiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('adddiv eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1381,26 +1381,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax - ebx + ecx
                     z = eax
-                    writeASM(lineCounterASM, 'subadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('subadd eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax - ebx - ecx
                     z = eax
-                    writeASM(lineCounterASM, 'subsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('subsub eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax - ebx * ecx
                     z = eax
-                    writeASM(lineCounterASM, 'submult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('submult eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax - ebx / ecx
                     z = eax
-                    writeASM(lineCounterASM, 'subdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('subdiv eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1409,26 +1409,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax * ebx + ecx
                     z = eax
-                    writeASM(lineCounterASM, 'multadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('multadd eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax * ebx - ecx
                     z = eax
-                    writeASM(lineCounterASM, 'multsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('multsub eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax * ebx * ecx
                     z = eax
-                    writeASM(lineCounterASM, 'multmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('multmult eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax * ebx / ecx
                     z = eax
-                    writeASM(lineCounterASM, 'multdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('multdiv eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1437,26 +1437,26 @@ def mathStuff(placeHolder): #do I need to import the variables and registers
                 if (placeHolder[5] == '+'):
                     eax = eax / ebx + ecx
                     z = eax
-                    writeASM(lineCounterASM, 'divadd eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('divadd eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '-'):
                     eax = eax / ebx - ecx
                     z = eax
-                    writeASM(lineCounterASM, 'divsub eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('divsub eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '*'):
                     eax = eax / ebx * ecx
                     z = eax
-                    writeASM(lineCounterASM, 'divmult eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('divmult eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 elif (placeHolder[5] == '/'):
                     eax = eax / ebx / ecx
                     z = eax
-                    writeASM(lineCounterASM, 'divdiv eax eax ebx ecx')
-                    writeASM(lineCounterASM, 'mov z, eax')
+                    writeASM('divdiv eax eax ebx ecx')
+                    writeASM('mov z, eax')
 
                 else:
                     print('Compiler: Error in temp7 equations')
@@ -1546,19 +1546,19 @@ def betaParser (i):
 
     if (placeHolder[0] == "unsigned"):  #the varibles are consisnt with naming right?
         var4 = placeHolder[1] + ' dd $'
-        writeASM(lineCounterASM, var4)       #FINISH Unsigned
+        writeASM(var4)       #FINISH Unsigned
         var4 = placeHolder[2] + ' dd $'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = placeHolder[3] + ' dd $'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
     elif (placeHolder[0] == "signed"):
         var4 = placeHolder[1] + ' dd $'
-        writeASM(lineCounterASM, var4)       #FINISH Signed
+        writeASM(var4)       #FINISH Signed
         var4 = placeHolder[2] + ' dd $'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
         var4 = placeHolder[3] + ' dd $'
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
     elif (placeHolder[0] == "a" or "b" or "c" or "x" or "y" or "z"): #only positive range: 0 to 255
         #check lenght to figure out whats happening
@@ -1578,7 +1578,7 @@ def betaParser (i):
 
         #prints statement to assembly.txt
         var4 = 'cmp ' + placeHolder[1] + ', ' + placeHolder[3]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
         if (placeHolder[2] == '<'):
             var4 = 'jl if'      #maybe have it re write this later
@@ -1602,8 +1602,8 @@ def betaParser (i):
             var4 = 'jmp else'
 
         #run outside of if to save space
-        writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
-        writeASM(lineCounterASM, 'if:')
+        writeASM(var4)  #can put at end of if statement to make shorter
+        writeASM('if:')
 
         #ifCheck will go to 'true' or 'else' depends on statement
         if (placeHolder[1] == 'a'): #if y > 0 : 0 1 2 3
@@ -1851,7 +1851,7 @@ def betaParser (i):
 
     elif (placeHolder[0] == "else"):
         #make labels in assembly 
-        writeASM(lineCounterASM, 'else:')
+        writeASM('else:')
 
         if (ifCheck == 'true'):
             elseCheck = 'false'
@@ -1871,37 +1871,37 @@ def betaParser (i):
         #check statement, if its active.
         #prints statement to assembly.txt
         var4 = 'cmp ' + placeHolder[1] + ', ' + placeHolder[3]
-        writeASM(lineCounterASM, var4)
+        writeASM(var4)
 
         if (placeHolder[2] == '<'): # while y = 3
             var4 = 'jl while'      #maybe have it re write this later
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
 
         elif (placeHolder[2] == '>'):
             var4 = 'jg while'      #maybe have it re write this later
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
 
         elif (placeHolder[2] == '<='):
             var4 = 'jle while'      #maybe have it re write this later
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
 
         elif (placeHolder[2] == '>='):
             var4 = 'jge while'      #maybe have it re write this later
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
             
         elif (placeHolder[2] == '!='):
             var4 = 'jne while'      #maybe have it re write this later
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
 
         elif (placeHolder[2] == '='):
             var4 = 'je while'
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter 
+            writeASM(var4)  #can put at end of if statement to make shorter 
 
         else:
             var4 = 'jmp end'
-            writeASM(lineCounterASM, var4)  #can put at end of if statement to make shorter
+            writeASM(var4)  #can put at end of if statement to make shorter
 
-        writeASM(lineCounterASM, 'while:')  #label for asm jump
+        writeASM('while:')  #label for asm jump
 
         #while Check will go to 'true' or 'false' depends on statement
         if (placeHolder[1] == 'a'): # while y > 0 : 0 1 2 3
