@@ -20,28 +20,7 @@
 #-----------------------------------------------------------------------------------------------------
 #NOTES:
 #-----------------------------------------------------------------------------------------------------
-#Were using python and we know what variables are signed and unsigned, so just make differnt if statments
-
-#Should output 2 txt files (Assembly and Machine code): Or just one that seperates them
-
-#Indentation should be checked for the high level code to determine if in if/while loops
-
 #If a varible was signed or unsigned. Would i need to have a manual check for if its outside of that number range so that it gives an error message?
-
-
-
-#can a b c and x y z varibles do arithmetics together? Didn't implement it that way
-
-
-
-
-#there is one in both the betaCompiler and Assmebly-to-Machine file. One must go
-
-#oldCode can go, just temp holder
-
-#Finish unsigned and signed in both betaCompiler and Assembly-to-Machine
-
-#Add the print command to the assembly conversion
 
 
 
@@ -49,6 +28,10 @@
 #variables/imports
 #-----------------------------------------------------------------------------------------------------
 import re
+
+#other files with needed functions
+import ASM
+import CSV
 
 lineCounterASM = '' #their are 389 uses of this function, that I'll clean up later
 
@@ -107,20 +90,11 @@ class Stack:
             return None
         return self.stack.pop()
 
-#How it works:
+    #stack = Stack() #create stack
 
-#create a stack
-    #stack = Stack() 
+    #stack.push('eax') #push variable
 
-#Push registers to the stack
-    #stack.push('eax')
-    #stack.push('ebx')
-    #stack.push('ecx')
-
-#How to Pop registers from the stack (just an example)
-    #print(stack.pop())  # Outputs: %ecx
-    #print(stack.pop())  # Outputs: %ebx
-    #print(stack.pop())  # Outputs: %eax
+    #stack.pop()  #pop : output %eax : last in
 
 
 

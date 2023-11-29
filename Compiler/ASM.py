@@ -1287,19 +1287,18 @@ def assembler(i):
         writeBack(lineCounter, var4)
 
     elif (line2c[0] == ""): #checks for blank lines : Don't know if we actually need this
-        writeBack(lineCounter, var4)
+        writeBack(lineCounter, "")
 
     elif (line2c[0].endswith == ":"):
-        global array, arrayCounter
-        
-
-
-        
+        global array
+        array.append(lineCounterM)
 
 
     else:
         #error handling
-        print("Error at assembler at line ", lineCounter)
-        
+        print("Error at assembler at line ", lineCounterM)
+    
+
+    #idea of putting a blank row for csv indication : writeBack(lineCounter, '')
     return 0
 
