@@ -18,10 +18,21 @@ import CSV
 
 #C:\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt
 p = 0
-fileName = ('c:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\test.txt')
+
+fileName = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\HighLevelCode.txt")
+fileName2 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Assembly.txt")
+
+
+
+
 #'C:\\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt'     #r'C:/Users/harle/OneDrive/Documents/GitHub/CSC-365--Project-2/Compiler/assembly.txt'
-lenG = CSV.lineCount(fileName)
+lenG = CSV.lineCount(fileName2)
 
 while(p < lenG):
-    ASM.assembler(fileName, p)
+    ASM.assembler(fileName2, p)
     p = p + 1
+
+
+    #Assembler:
+    #puts 0000 as end of all
+    #doesn't handle indents

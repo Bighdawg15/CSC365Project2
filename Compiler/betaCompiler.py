@@ -16,6 +16,8 @@ import CSV
 #dummy variable
 lineCounterASM = '' #their are 389 uses of this function, that I'll clean up later
 
+fileName = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\HighLevelCode.txt")
+fileName2 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Assembly.txt")
 
 #variables
 i = 0
@@ -58,12 +60,17 @@ edx2 = 0
 #writeASM fucntion (for HLC to ASM)
 #-----------------------------------------------------
 def writeASM (new_line):    #doeslinCounterASM need to be imported?
-    global lineCounterASMR      #to many statements already include the other import
+    global lineCounterASMR, fileName2      #to many statements already include the other import
     lineCounterASMR = lineCounterASMR + 1  # increments the line for each time its added to for ASM
-    #new_line = 'This is the new text for line 3\n'
+    
+    #new line after each write
+    new_line = new_line + '\n'
+
+    if (indentCheck == '\t'):
+        new_line = '\t' + new_line
 
     # Read all lines
-    with open('assembler.txt', 'r') as f:
+    with open(fileName2, 'r') as f:
         lines = f.readlines()
 
     # Modify the specific line
@@ -73,7 +80,7 @@ def writeASM (new_line):    #doeslinCounterASM need to be imported?
         lines.append(new_line)  # Append the new line if the file has fewer lines
 
     # Write all lines back to the file
-    with open('assembler.txt', 'w') as f:
+    with open(fileName2, 'w') as f:
         f.writelines(lines)
 
     return 0
@@ -1528,7 +1535,7 @@ def checkIndent(filename, line_number):
 #more for the assembler
 
 def betaParser (i):
-    global a, b, c, x, y, z, whileCheck, ifCheck, whileCounter, eax, ebx, ecx, edx
+    global a, b, c, x, y, z, whileCheck, ifCheck, whileCounter, eax, ebx, ecx, edx, fileName
 
     with open(fileName, 'r') as file:
         content = file.readlines()#reads all lines

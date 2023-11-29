@@ -1,3 +1,0 @@
-#import pathlib
-#p = pathlib.Path(__file__) # get the path of the current file
-#print(p)

@@ -48,16 +48,21 @@ lineCounterM = 0 #count lines for MACHINE CODE
 array = {}
 i = 1
 
+fileName3 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Machine.txt")
+
 #---------------------------------------------------
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
 def writeBack (new_line):  #can't just append 1 line apparently
-    global lineCounterM #global, other counter was mistake, too far gone
+    global lineCounterM, fileName3 #global, other counter was mistake, too far gone
     lineCounterM = lineCounterM + 1   #increment machine lines as added
     #new_line = 'This is the new text for line 3\n'
 
+    #new line after each write
+    new_line = new_line + '\n'
+
     #reads all lines
-    with open('machine.txt', 'r') as f:
+    with open(fileName3, 'r') as f:
         lines = f.readlines()
 
     #modify specific line
@@ -67,12 +72,16 @@ def writeBack (new_line):  #can't just append 1 line apparently
         lines.append(new_line)  # Append the new line if the file has fewer lines
 
     #write all lines back to the file
-    with open('machine.txt', 'w') as f:
+    with open(fileName3, 'w') as f:
         f.writelines(lines)
 
     return 0
 
 #-----------------------------------------------------
+#issue, its defaulting the last addon to 0000
+
+
+
 def assembler(fileName, i):
     with open(fileName, 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
@@ -337,7 +346,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -391,7 +400,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -445,61 +454,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
-
-        if (var1 == "eax"):
-            var1 = '0001 '
-        elif (var1 == "ebx"):
-            var1 = '0002 '
-        elif (var1 == "ecx"):
-            var1 = '0003 '
-        elif (var1 == "edx"):
-            var1 = '0004 '
-        else:
-            var1 = '0000 '
-        
-        if (var2 == "eax"):
-            var2 = '0001 '
-        elif (var2 == "ebx"):
-            var2 = '0002 '
-        elif (var2 == "ecx"):
-            var2 = '0003 '
-        elif (var2 == "edx"):
-            var2 = '0004 '
-        else:
-            var2 = '0000 '
-
-        if (var3 == "eax"):
-            var3 = '0001'
-        elif (var3 == "ebx"):
-            var3 = '0002'
-        elif (var3 == "ecx"):
-            var3 = '0003'
-        elif (var3 == "edx"):
-            var3 = '0004'
-        else:
-            var3 = '0000'
-
-        var4 = 'AC ' + var0 + var1 + var2 + var3
-        writeBack(var4)
-
-    elif (line2c[0] == "addmult"):
-        var0 = line2c[1]
-        var1 = line2c[2]
-        var2 = line2c[3]
-        var3 = line2c[4]
-
-        #Statments to check for certain registers
-        if (var0 == "eax"):
-            var0 = '0001 '
-        elif (var0 == "ebx"):
-            var0 = '0002 '
-        elif (var0 == "ecx"):
-            var0 = '0003 '
-        elif (var0 == "edx"):
-            var0 = '0004 '
-        else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -537,6 +492,60 @@ def assembler(fileName, i):
         var4 = 'AD ' + var0 + var1 + var2 + var3
         writeBack(var4)
 
+    elif (line2c[0] == "addmult"):
+        var0 = line2c[1]
+        var1 = line2c[2]
+        var2 = line2c[3]
+        var3 = line2c[4]
+
+        #Statments to check for certain registers
+        if (var0 == "eax"):
+            var0 = '0001 '
+        elif (var0 == "ebx"):
+            var0 = '0002 '
+        elif (var0 == "ecx"):
+            var0 = '0003 '
+        elif (var0 == "edx"):
+            var0 = '0004 '
+        else:
+            var0 = '0000 '
+
+        if (var1 == "eax"):
+            var1 = '0001 '
+        elif (var1 == "ebx"):
+            var1 = '0002 '
+        elif (var1 == "ecx"):
+            var1 = '0003 '
+        elif (var1 == "edx"):
+            var1 = '0004 '
+        else:
+            var1 = '0000 '
+        
+        if (var2 == "eax"):
+            var2 = '0001 '
+        elif (var2 == "ebx"):
+            var2 = '0002 '
+        elif (var2 == "ecx"):
+            var2 = '0003 '
+        elif (var2 == "edx"):
+            var2 = '0004 '
+        else:
+            var2 = '0000 '
+
+        if (var3 == "eax"):
+            var3 = '0001'
+        elif (var3 == "ebx"):
+            var3 = '0002'
+        elif (var3 == "ecx"):
+            var3 = '0003'
+        elif (var3 == "edx"):
+            var3 = '0004'
+        else:
+            var3 = '0000'
+
+        var4 = 'AC ' + var0 + var1 + var2 + var3
+        writeBack(var4)
+
     elif (line2c[0] == "subadd"):
         var0 = line2c[1]
         var1 = line2c[2]
@@ -553,7 +562,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -607,7 +616,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -661,7 +670,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -715,7 +724,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -769,7 +778,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -823,7 +832,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -877,7 +886,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -931,7 +940,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -985,7 +994,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -1039,7 +1048,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -1093,7 +1102,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -1147,7 +1156,7 @@ def assembler(fileName, i):
         elif (var0 == "edx"):
             var0 = '0004 '
         else:
-            var1 = '0000 '
+            var0 = '0000 '
 
         if (var1 == "eax"):
             var1 = '0001 '
@@ -1185,9 +1194,9 @@ def assembler(fileName, i):
         var4 = 'DD ' + var0 + var1 + var2 + var3
         writeBack(var4)
 
-    elif (line2c[0] == "cmp"):
-        var1 = line2c[2]
-        var2 = line2c[3]
+    elif (line2c[0] == "cmp"): #cmp x, y : 0 1 2
+        var1 = line2c[1]
+        var2 = line2c[2]
 
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -1280,12 +1289,22 @@ def assembler(fileName, i):
         var4 = 'FF' + var1
         writeBack(var4)
 
-    elif (line2c[0] == ""): #checks for blank lines : Don't know if we actually need this
+    elif (line2c[0].strip() == ""): #checks for blank lines : Don't know if we actually need this
         writeBack("")
 
-    elif (line2c[0].endswith == ":"):
-        global array
-        array.append(lineCounterM)
+    elif (line2c[0] == "print"): #print \n
+        printVar = 'print ' + line2c[1]
+        writeBack(printVar)
+        #print (line2c[0])  Done in the compiling
+
+
+    elif (':' in line2c[0]): #original: line2c[0].endswith == ":"
+        #global array
+        #array.append(lineCounterM)
+        writeBack(line2c[0])
+
+    elif (line2c[0] == 'exit'):
+        return 0
 
     else:
         #error handling

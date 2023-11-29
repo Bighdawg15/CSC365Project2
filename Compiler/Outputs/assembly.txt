@@ -5,50 +5,75 @@ x dd 0
 y dd 0
 z dd 0
 
-_start:
-    mov eax, 3
-    mov a, eax
+start:
+mov eax, 3
+mov a, eax
 
-    mov eax, a
-    add eax, 15
-    mov b, eax
+mov eax, a
+add eax eax ebx
+mov b, eax
 
-    mov eax, b
-    mul eax, a
-    div dword 10
-    mov c, eax
+mov eax, b
+mult eax eax ebx
+div eax eax 10
+mov c, eax
 
-    mov eax, -5
-    mov x, eax
+mov eax, -5
+mov x, eax
 
-    mov eax, 13
-    mov y, eax
+mov eax, 13
+mov y, eax
 
-    cmp dword c, 10
-    jle else_block
+cmp c, 10
+jle else
 
-    mov eax, y
-    add eax, 10
-    mov x, eax
-    jmp end_if
+mov eax, y
+add eax eax ebx
+mov x, eax
+jmp if
 
-else_block:
-    mov eax, y
-    sub eax, 20
-    mov x, eax
+else:
+mov eax, y
+sub eax eax ebx
+mov x, eax
 
-end_if:
-    mov eax, y
-    cmp eax, 0
-    jle end_while
+if:
+mov eax, y
+cmp eax, 0
+jle end_while
 
-while_block:
-    print y
-    print \n
-    print x
-    print \n
+while:
+print y
+print \n
+print x
+print \n
 
-    jmp end_if
+jmp end_if
 
-end_while:
-    exit
+end:
+add eax ebx ecx
+sub eax ebx ecx
+mult eax ebx ecx
+div eax ebx ecx
+
+addadd eax ebx ecx edx
+addsub eax ebx ecx edx
+addmult eax ebx ecx edx
+adddiv eax ebx ecx edx
+subadd eax ebx ecx edx
+subsub eax ebx ecx edx
+submult eax ebx ecx edx
+subdiv eax ebx ecx edx
+multadd eax ebx ecx edx
+multsub eax ebx ecx edx
+multmult eax ebx ecx edx
+multdiv eax ebx ecx edx
+divadd eax ebx ecx edx
+divsub eax ebx ecx edx
+divmult eax ebx ecx edx
+divdiv eax ebx ecx edx
+
+
+
+
+exit
