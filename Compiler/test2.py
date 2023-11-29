@@ -18,7 +18,7 @@ import CSV
 
 #C:\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt
 p = 0
-fileName = 'c:\\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\test.txt'
+fileName = ('c:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\test.txt')
 #'C:\\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt'     #r'C:/Users/harle/OneDrive/Documents/GitHub/CSC-365--Project-2/Compiler/assembly.txt'
 lenG = CSV.lineCount(fileName)
 
