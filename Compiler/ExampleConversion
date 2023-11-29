@@ -35,6 +35,65 @@ while y > 0
 Assembly Example:
 //////////////////////////////////////////////////////////////////////////////////
 
+section .data
+    a dd 0
+    b dd 0
+    c dd 0
+    x dd 0
+    y dd 0
+    z dd 0
+
+section .text
+    global _start
+
+_start:
+    mov eax, 3
+    mov [a], eax
+
+    mov eax, [a]
+    add eax, 15
+    mov [b], eax
+
+    mov eax, [b]
+    imul eax, [a]
+    idiv dword 10
+    mov [c], eax
+
+    mov eax, -5
+    mov [x], eax
+
+    mov eax, 13
+    mov [y], eax
+
+    cmp dword [c], 10
+    jle else_block
+
+    mov eax, [y]
+    add eax, 10
+    mov [x], eax
+    jmp end_if
+
+else_block:
+    mov eax, [y]
+    sub eax, 20
+    mov [x], eax
+
+end_if:
+    mov eax, [y]
+    cmp eax, 0
+    jle end_while
+
+while_block:
+    ; print y
+    ; print \n
+    ; print x
+    ; print \n
+
+    dec dword [y]
+    jmp end_if
+
+end_while:
+    ; exit program
 
 
 

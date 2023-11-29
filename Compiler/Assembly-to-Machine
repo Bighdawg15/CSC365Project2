@@ -46,14 +46,17 @@ class Stack:
 #---------------------------------------------------
 import re
 
-lineCounter = 0 #count lines for assembler txt
+lineCounter = 0 #here till error is fixed with all writeBack functions
+lineCounterM = 0 #count lines for MACHINE CODE
+array = {}
 i = 1
 
 #---------------------------------------------------
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
 def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
-    lineCounter = lineCounter + 1   #increment machine lines as added
+    global lineCounterM #global, other counter was mistake, too far gone
+    lineCounterM = lineCounterM + 1   #increment machine lines as added
     #new_line = 'This is the new text for line 3\n'
 
     #reads all lines
@@ -61,8 +64,8 @@ def writeBack (lineCounter, new_line):  #can't just append 1 line apparently
         lines = f.readlines()
 
     #modify specific line
-    if lineCounter - 1 < len(lines):
-        lines[lineCounter - 1] = new_line
+    if lineCounterM - 1 < len(lines):
+        lines[lineCounterM - 1] = new_line
     else:
         lines.append(new_line)  # Append the new line if the file has fewer lines
 
@@ -81,8 +84,6 @@ def assembler(i):
         line2 = g.readlines()   #saves whole value to varuable
         line2b = line2[i]   #saves specified line to variable
         line2c = re.split('[, ]', line2b) #splits line up at whitespaces and ,        {If this doesnt work do 'line2b.split() + line2b.split(',')}
-
-        
 
     if (line2c[0] == "a"):  #Check the varibles
         writeBack(lineCounter, 'FF 0005')    #FF (Variable) 0000 (Memory Location)
@@ -1287,6 +1288,14 @@ def assembler(i):
 
     elif (line2c[0] == ""): #checks for blank lines : Don't know if we actually need this
         writeBack(lineCounter, var4)
+
+    elif (line2c[0].endswith == ":"):
+        global array, arrayCounter
+        
+
+
+        
+
 
     else:
         #error handling
