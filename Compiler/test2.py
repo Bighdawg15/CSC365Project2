@@ -34,5 +34,5 @@ while(p < lenG):
 
 
     #Assembler:
-    #puts 0000 as end of all
+    #puts 0000 as end of all : it store while space as slot 2 :|
     #doesn't handle indents

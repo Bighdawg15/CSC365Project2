@@ -86,8 +86,8 @@ def assembler(fileName, i):
     with open(fileName, 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
         line2b = line2[i]   #saves specified line to variable
-        line2c = re.split('[, ]', line2b) #splits line up at whitespaces and ,        {If this doesnt work do 'line2b.split() + line2b.split(',')}
-
+        line2c = re.split('[, \n]', line2b) #splits line up at whitespaces and ,        {If this doesnt work do 'line2b.split() + line2b.split(',')}
+            #need \n, added \n to all lines at somepoint
     if (line2c[0] == "a"):  #Check the varibles
         writeBack('FF 0005')    #FF (Variable) 0000 (Memory Location)
 
@@ -106,10 +106,10 @@ def assembler(fileName, i):
     elif (line2c[0] == "z"):
         writeBack('FF 0010')
 
-    elif (line2c[0] == "mov"): 
+    elif (line2c[0] == "mov"): #['mov', 'eax', '', 'y', '']
         #this is where I'd add in a check for if a register was changed
         var1 = line2c[1]
-        var2 = line2c[2]
+        var2 = line2c[3]
     
         #Statments to check for certain registers
         if (var1 == "eax"):
@@ -157,9 +157,8 @@ def assembler(fileName, i):
             var2 = '0010 '
         else:
             var2 = '0000 '  #representation for just numbers
-
-
-        var4 = '00 ' + var1 + var2 
+            
+        var4 = '00 ' + var1 + var2
         writeBack(var4)
 
     elif (line2c[0] == "add"):  # add xxxx xxxx xxxx : 0 1 2 3
