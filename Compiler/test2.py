@@ -10,29 +10,24 @@ import CSV
 #here to test certain functions seperately
 #---------------------------------------------------------------
 
+#leave a shit ton of empty lines at the end of HLC to get rid of content[i] error
 
-#import pathlib
-#t = pathlib.Path(__file__) # get the path of the current file
-#print(t)
+#also fix \n
 
-
-#C:\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt
-p = 0
 
 fileName = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\HighLevelCode.txt")
 fileName2 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Assembly.txt")
+fileName3 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Machine.txt")
 
+i = 0
+betaCompiler.projectCompiler(i)
 
+lenG = CSV.lineCount(fileName2) - 3
+p = 0
 
-
-#'C:\\Users\harle\OneDrive\Documents\GitHub\CSC-365--Project-2\Compiler\Outputs\assembly.txt'     #r'C:/Users/harle/OneDrive/Documents/GitHub/CSC-365--Project-2/Compiler/assembly.txt'
-lenG = CSV.lineCount(fileName2)
-
-while(p < lenG):
+while(p < lenG):    #runs assembler
+    #doesn't handle indents
     ASM.assembler(fileName2, p)
     p = p + 1
-
-
-    #Assembler:
-    #puts 0000 as end of all : it store while space as slot 2 :|
-    #doesn't handle indents
+    
+    

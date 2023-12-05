@@ -19,10 +19,10 @@ def lineCount(fileName):
 #--------------------------------
 #'HLC instruction', 'YMC Address', 'YMC assembly', 'YMC Encoding', 'Modified Registers', 'Modified Flags'
 # hlcData, assemblyData, machineData, addressArray, modReg, modFlags
-def csvCreate():
+def csvCreate(fileName, fileName2, fileName3): #HLC, ASM, Machine
     import csv
-    fileName = 'test.txt'   #Whatever the HLC files name is
-    textStop = lineCount('assembly.txt')    #ASM will be the longest
+    #fileName = 'test.txt'   #Whatever the HLC files name is
+    textStop = lineCount(fileName2)    #ASM will be the longest
 
     # Create arrays : temp for now
     addressArray = ['1000', '1200', '1200', '1200']
@@ -37,14 +37,14 @@ def csvCreate():
         hlcData = list(reader)
 
     #opens file: Assembly Code file
-    with open('assembly.txt', newline='') as input_file:
+    with open(fileName2, newline='') as input_file:
         # Create a CSV reader object
         reader = csv.reader(input_file)
         # Read the data into a list of lists
         assemblyData = list(reader)
 
     #opens file: Machine Code file
-    with open('machine.txt', newline='') as input_file:
+    with open(fileName3, newline='') as input_file:
         # Create a CSV reader object
         reader = csv.reader(input_file)
         # Read the data into a list of lists

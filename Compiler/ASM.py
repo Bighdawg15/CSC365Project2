@@ -23,8 +23,6 @@ class Stack:
 
     #stack.pop()  #pop : output %eax : last in
 
-
-
 #Memory:
     #eax = 0001
     #ebx = 0002
@@ -43,20 +41,28 @@ class Stack:
 #---------------------------------------------------
 import re
 
-lineCounter = 0 #here till error is fixed with all writeBack functions
 lineCounterM = 0 #count lines for MACHINE CODE
-array = {}
+array = []
 i = 1
 
+#paths
+fileName2 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Assembly.txt")
 fileName3 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Machine.txt")
 
 #---------------------------------------------------
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
+tempCounter = 0
+machineArr = []
+
 def writeBack (new_line):  #can't just append 1 line apparently
-    global lineCounterM, fileName3 #global, other counter was mistake, too far gone
+    global lineCounterM, fileName3, tempCounter, machineArr #global, other counter was mistake, too far gone
     lineCounterM = lineCounterM + 1   #increment machine lines as added
-    #new_line = 'This is the new text for line 3\n'
+    tempCounter = tempCounter + 1
+
+    new_line = str(new_line)
+
+    machineArr.insert(tempCounter, new_line)
 
     #new line after each write
     new_line = new_line + '\n'
@@ -79,10 +85,13 @@ def writeBack (new_line):  #can't just append 1 line apparently
 
 #-----------------------------------------------------
 #issue, its defaulting the last addon to 0000
-
-
+lineCount = 0
+tempC = 0
+liability = 0
+from betaCompiler import arrayC
 
 def assembler(fileName, i):
+    global lineCounterM, array, lineCount, tempC, liability
     with open(fileName, 'r') as g:    #opens file that is going to be converted
         line2 = g.readlines()   #saves whole value to varuable
         line2b = line2[i]   #saves specified line to variable
@@ -1225,30 +1234,58 @@ def assembler(fileName, i):
         writeBack(var4)
 
     elif (line2c[0] == "jmp"):
-        var4 = 'E0 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+
+        var4 = str(var4)
+        var4 = 'E0 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "jl"):
-        var4 = 'E1 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
+        var4 = 'E1 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "jle"):
-        var4 = 'E2 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
+        var4 = 'E2 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "jg"):
-        var4 = 'E3 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
+        var4 = 'E3 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "jge"):
-        var4 = 'E4 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
+        var4 = 'E4 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "jne"):
-        var4 = 'E5 ' + line2c[1]
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
+        var4 = 'E5 ' + var4
         writeBack(var4)
 
     elif (line2c[0] == "je"):
+        var4 = arrayC[tempC]
+        tempC = tempC + 1
+        
+        var4 = str(var4)
         var4 = 'E6 ' + line2c[1]
         writeBack(var4)
 
@@ -1289,18 +1326,35 @@ def assembler(fileName, i):
         writeBack(var4)
 
     elif (line2c[0].strip() == ""): #checks for blank lines : Don't know if we actually need this
+        if (liability == 1):
+            liability = liability -1 #idea is that it saves a address after empty space located after a label in ASM
+            array.append(lineCounterM)
         writeBack("")
 
     elif (line2c[0] == "print"): #print \n
-        printVar = 'print ' + line2c[1]
+        if (line2c[1] == '\n'):
+            var4 = '6666'
+        elif (line2c[1] == 'a'):
+            var4 = '0005'
+        elif (line2c[1] == 'b'):
+            var4 = '0006'
+        elif (line2c[1] == 'c'):
+            var4 = '0007'
+        elif (line2c[1] == 'x'):
+            var4 = '0008'
+        elif (line2c[1] == 'y'):
+            var4 = '0009'
+        elif (line2c[1] == 'z'):
+            var4 = '0010'
+        else:
+            var4 = '0000'
+
+        printVar = 'EE ' + var4
         writeBack(printVar)
         #print (line2c[0])  Done in the compiling
 
-
     elif (':' in line2c[0]): #original: line2c[0].endswith == ":"
-        #global array
-        #array.append(lineCounterM)
-        writeBack(line2c[0])
+        writeBack(lineCounterM + 1)
 
     elif (line2c[0] == 'exit'):
         return 0
