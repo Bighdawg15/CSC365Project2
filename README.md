@@ -1,27 +1,7 @@
 # CSC 365: Project 2
-
 Made by Harley, Radhe, Seth, and Zayd 
-Code Example:
---------------------------------------------------------
-unsigned a b c
-signed x y z
 
-a = 3
-b = 15 + a
-c = b * a / 10
-
-x = -5
-y = 13
-
-if c <= 10
-	x = y + 10
-else
-	x = y - 20
-
-while y > 0
-	print y
-	print \n
-	print x
-	print \n
-	y = y - 1
---------------------------------------------------------
+Description:
+The idea was to make a compiler that would read a txt file with HLC and then to have it translate to ASM and Machine code, the final output being a CSV file.
+We were restricted to 4 registers, with 1kb of storage for data and instructions.
+This is less of making a compiler and more of simulating one.
