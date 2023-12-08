@@ -19,47 +19,69 @@ def lineCount(fileName):
 #--------------------------------
 #'HLC instruction', 'YMC Address', 'YMC assembly', 'YMC Encoding', 'Modified Registers', 'Modified Flags'
 # hlcData, assemblyData, machineData, addressArray, modReg, modFlags
-def csvCreate(fileName, fileName2, fileName3): #HLC, ASM, Machine
+def csvCreate(): #HLC, ASM, Machine
+    from betaCompiler import flagArr, ASMArr, YMCArr, HLCArr, modReg, fileName2, fileName4
+    from ASM import machineArr
     import csv
-    #fileName = 'test.txt'   #Whatever the HLC files name is
-    textStop = lineCount(fileName2)    #ASM will be the longest
-
-    # Create arrays : temp for now
-    addressArray = ['1000', '1200', '1200', '1200']
-    modFlags = ['CF, 0', 'ZF', 'SF', 'OF']
-    modReg = ['ax', 'bx', 'dx', 'cx']
-
-    #opens file: HLC file, whatever thats called
-    with open(fileName, newline='') as input_file:
-        # Create a CSV reader object
-        reader = csv.reader(input_file)
-        # Read the data into a list of lists
-        hlcData = list(reader)
-
-    #opens file: Assembly Code file
-    with open(fileName2, newline='') as input_file:
-        # Create a CSV reader object
-        reader = csv.reader(input_file)
-        # Read the data into a list of lists
-        assemblyData = list(reader)
-
-    #opens file: Machine Code file
-    with open(fileName3, newline='') as input_file:
-        # Create a CSV reader object
-        reader = csv.reader(input_file)
-        # Read the data into a list of lists
-        machineData = list(reader)
+    
+    textStop = lineCount(fileName2)    #checks how long the ASM File is
 
     #create/open 'output.csv' File
-    with open('output.csv', 'w', newline='') as output_file:
+    with open(fileName4, 'w', newline='') as output_file:
         writer = csv.writer(output_file, delimiter='\t')
 
         #write headers
-        writer.writerow(['HLC instruction', 'YMC Address', 'YMC assembly', 'YMC Encoding', 'Modified Registers', 'Modified Flags'])
+        writer.writerow(['HLC instruction', '       ', 'YMC Address', '           ', 'YMC assembly', '       ', 'YMC Encoding', '       ', 'Modified Registers', '       ', 'Modified Flags'])
+
+
+
+
+        #make for loop to check and alter all files to remove \n or \t
+        for i in range(0, textStop, +1):
+            HLCArr[i] = HLCArr[i].replace("\n", "")
+            HLCArr[i] = HLCArr[i].replace("\t", "")
+
+            ASMArr[i] = str(ASMArr[i])
+            ASMArr[i] = ASMArr[i].replace("\n", "")
+            ASMArr[i] = ASMArr[i].replace("\t", "")
+
+            machineArr[i] = machineArr[i].replace("\n", "")
+            machineArr[i] = machineArr[i].replace("\t", "")
+
+            YMCArr[i] = str(YMCArr[i])  #convert to string to increase length later
+            #makes it 4 long with 0000
+            if (len(YMCArr[i]) == 1):
+                YMCArr[i] = '000' + YMCArr[i]
+                if (YMCArr[i] == '' or ' '):
+                    YMCArr[i] = ' '
+                
+            elif (len(YMCArr[i]) == 2):
+                YMCArr[i] = '00' + YMCArr[i]  
+            elif (len(YMCArr[i]) == 3):
+                YMCArr[i] = '0' + YMCArr[i]
+
+            YMCArr[i] = YMCArr[i].replace("\n", "")
+            YMCArr[i] = YMCArr[i].replace("\t", "")
+            
+            modReg[i] = modReg[i].replace("\n", "")
+            modReg[i] = modReg[i].replace("\t", "")
+
+            flagArr[i] = flagArr[i].replace("\n", "")
+            flagArr[i] = flagArr[i].replace("\t", "")
+
+            #makes them all a certain length by adding white space
+            HLCArr[i] = HLCArr[i].ljust(21)
+            ASMArr[i] = ASMArr[i].ljust(21)
+            machineArr[i] = machineArr[i].ljust(21)
+            YMCArr[i] = YMCArr[i].ljust(21)
+            modReg[i] = modReg[i].ljust(21)
+            flagArr[i] = flagArr[i].ljust(21)
+
+            
 
         #loop to write each row
         for i in range(0, textStop, +1):
-            writer.writerow([hlcData[i], assemblyData[i], machineData[i], addressArray[i], modReg[i], modFlags[i]])
+            writer.writerow([HLCArr[i], YMCArr[i], machineArr[i], ASMArr[i], modReg[i], flagArr[i]])
 
 
     print('Successfully created CSV File')
@@ -68,25 +90,5 @@ def csvCreate(fileName, fileName2, fileName3): #HLC, ASM, Machine
 
 
 #-------------------------
-#for i in range(0, 4, +1): # start, stop, increment : (0, 4, -1 or +1)
-     # do something
-
-#------------------------------------------
-#idea functions (Probably won't use, but keeping in case)
-#------------------------------------------
-#unsigned range: 0 to 256
-#signed range: -128 to 127
-
-
-
-def unsignedSigned(unsigned):
-    if unsigned > 127:
-        return unsigned - 256
-    else:
-        return unsigned
-
-def signedUnsigned(signed):
-    if signed < 0:
-        return signed + 256
-    else:
-        return signed
+#loop to print CSV File
+#-------------------------

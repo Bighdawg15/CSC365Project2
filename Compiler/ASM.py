@@ -42,7 +42,8 @@ class Stack:
 import re
 
 lineCounterM = 0 #count lines for MACHINE CODE
-array = []
+
+array = []  #to store addresses of if else, while, jmps, etc.
 i = 1
 
 #paths
@@ -53,7 +54,8 @@ fileName3 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\
 #writeBack Function (Writes to new txt file)
 #---------------------------------------------------
 tempCounter = 0
-machineArr = []
+n = 100 #to help alignment
+machineArr = [" " for _ in range(n)]
 
 def writeBack (new_line):  #can't just append 1 line apparently
     global lineCounterM, fileName3, tempCounter, machineArr #global, other counter was mistake, too far gone
@@ -61,8 +63,10 @@ def writeBack (new_line):  #can't just append 1 line apparently
     tempCounter = tempCounter + 1
 
     new_line = str(new_line)
-
-    machineArr.insert(tempCounter, new_line)
+    if (is_number(new_line)):
+        var4 = 0
+    else:
+        machineArr.insert(tempCounter, new_line)
 
     #new line after each write
     new_line = new_line + '\n'
@@ -1331,7 +1335,7 @@ def assembler(fileName, i):
             array.append(lineCounterM)
         writeBack("")
 
-    elif (line2c[0] == "print"): #print \n
+    elif (line2c[0] == "out"): #print \n
         if (line2c[1] == '\n'):
             var4 = '6666'
         elif (line2c[1] == 'a'):
@@ -1355,15 +1359,23 @@ def assembler(fileName, i):
 
     elif (':' in line2c[0]): #original: line2c[0].endswith == ":"
         writeBack(lineCounterM + 1)
+        arrayC.append(lineCounterM+1)
 
-    elif (line2c[0] == 'exit'):
-        return 0
+    elif (is_number(line2c[0])):
+        writeBack(line2c[0])
 
     else:
         #error handling
+        print(line2c)
         print("Error at assembler at line ", lineCounterM)
     
 
     #idea of putting a blank row for csv indication : writeBack('')
     return 0
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False

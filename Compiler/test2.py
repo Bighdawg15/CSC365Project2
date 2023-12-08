@@ -30,4 +30,5 @@ while(p < lenG):    #runs assembler
     ASM.assembler(fileName2, p)
     p = p + 1
     
+CSV.csvCreate()
     

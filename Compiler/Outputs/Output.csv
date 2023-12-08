@@ -1,0 +1,61 @@
+HLC instruction	       	YMC Address	           	YMC assembly	       	YMC Encoding	       	Modified Registers	       	Modified Flags
+                     	                     	                     	                     	                     	                     
+unsigned a b         	0011                 	FF 0005              	a dd $               	                     	                     
+                     	                     	FF 0006              	b dd $               	                     	                     
+                     	                     	                     	                     	                     	                     
+signed x y           	0014                 	FF 0008              	x dd $               	                     	                     
+                     	                     	FF 0009              	y dd $               	                     	                     
+                     	                     	                     	                     	                     	                     
+                     	0017                 	                     	                     	                     	                     
+a = 10               	0018                 	00 0001 0000         	mov eax, 10          	                     	                     
+                     	                     	00 0005 0001         	mov a, eax           	                     	                     
+                     	                     	                     	                     	 eax                 	                     
+b = 2                	0021                 	00 0001 0000         	mov eax, 2           	                     	                     
+                     	                     	00 0006 0001         	mov b, eax           	                     	                     
+                     	                     	                     	                     	 eax                 	                     
+x = -10              	0024                 	00 0001 0000         	mov eax, -10         	                     	                     
+                     	                     	00 0008 0001         	mov x, eax           	                     	                     
+                     	                     	                     	                     	 eax                 	                     
+y = 1                	0027                 	00 0001 0000         	mov eax, 1           	                     	                     
+                     	                     	00 0009 0001         	mov y, eax           	                     	                     
+                     	                     	                     	                     	 eax                 	 SF                  
+                     	0030                 	                     	                     	                     	                     
+while x < 0          	0031                 	                     	                     	                     	                     
+                     	                     	CC 0000 0000         	cmp x, 0             	                     	                     
+                     	                     	E1 21                	jl while             	                     	                     
+                     	                     	                     	                     	                     	                     
+print x              	0035                 	00 0001 0008         	mov eax, x           	                     	                     
+                     	                     	EE 0000              	out eax              	                     	                     
+                     	                     	                     	                     	                     	                     
+print \n             	0038                 	00 0001 0000         	mov eax,             	                     	                     
+                     	                     	EE 0000              	out eax              	                     	                     
+                     	                     	                     	                     	                     	                     
+x = x + y            	0041                 	00 0001 0008         	mov eax, x           	                     	                     
+                     	                     	00 0002 0009         	mov ebx, y           	                     	                     
+                     	                     	A 0001 0001 0002     	add eax eax ebx      	                     	                     
+                     	                     	00 0008 0001         	mov x, eax           	                     	                     
+                     	                     	                     	                     	 eax  ebx            	                     
+                     	0046                 	                     	                     	                     	 SF                  
+print x              	0047                 	                     	mov eax, x           	                     	                     
+                     	                     	CC 0000 0000         	out eax              	                     	                     
+                     	                     	E3 35                	                     	                     	                     
+print \n             	0050                 	                     	mov eax,             	                     	                     
+                     	                     	00 0001 0005         	out eax              	                     	                     
+                     	                     	EE 0000              	                     	                     	                     
+x = x + y            	0053                 	                     	mov eax, x           	                     	                     
+                     	                     	00 0001 0000         	mov ebx, y           	                     	                     
+                     	                     	EE 0000              	add eax eax ebx      	                     	                     
+                     	                     	                     	mov x, eax           	                     	                     
+                     	                     	00 0001 0005         	                     	 eax                 	                     
+                     	0058                 	00 0002 0006         	                     	                     	 SF                  
+print x              	0059                 	B 0001 0001 0002     	mov eax, x           	                     	                     
+                     	                     	00 0005 0001         	out eax              	                     	                     
+                     	                     	                     	                     	                     	                     
+print \n             	0062                 	                     	mov eax,             	                     	                     
+                     	                     	                     	out eax              	                     	                     
+                     	                     	                     	                     	                     	                     
+x = x + y            	0065                 	                     	mov eax, x           	                     	                     
+                     	                     	                     	mov ebx, y           	                     	                     
+                     	                     	                     	add eax eax ebx      	                     	                     
+                     	                     	                     	mov x, eax           	                     	                     
+                     	                     	                     	                     	 eax                 	                     

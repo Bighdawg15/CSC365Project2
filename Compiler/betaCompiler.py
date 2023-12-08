@@ -18,6 +18,7 @@ lineCounterASM = '' #their are 389 uses of this function, that I'll clean up lat
 
 fileName = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\HighLevelCode.txt")
 fileName2 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Assembly.txt")
+fileName4 = ("C:\\Users\harle\OneDrive\Documents\GitHub\CSC365Project2\Compiler\Outputs\Output.csv")
 
 #variables
 i = 0
@@ -31,17 +32,19 @@ whileLine = 0
 
 arrayAlign = 0  #place holder number to help align things in the csv file
 
+n = 100 #allows for empty space to allow alignment
+
 #arrays
-modReg = []         #register updates
-modFlags = []       #flag updates
-YMCArr = []         #keeps track of address's
+modReg = [" " for _ in range(n)]         #register updates
+modFlags = [" " for _ in range(n)]       #flag updates
+YMCArr = [" " for _ in range(n)]         #keeps track of address's
 
 #forr csv, might be easier to just put everything in arrays, depending on function it'd change the spaceing, then feed arrays to csv function
 #ignore spacing, just use as indication
 #have it write as its beign read, or run sepearte later
-HLCArr = []
-ASMArr = []
-MachArr = []
+HLCArr = [" " for _ in range(n)]
+ASMArr = [" " for _ in range(n)]
+#machine array in ASM
 
 
 #only positive                  Range: 0 to 255  (unsigned)
@@ -66,6 +69,8 @@ ebx2 = 0
 ecx2 = 0
 edx2 = 0
 
+
+var6 = ''
 #-----------------------------------------------------
 #writeASM fucntion (for HLC to ASM)
 #-----------------------------------------------------
@@ -74,8 +79,12 @@ def writeASM (new_line):
     lineCounterASMR = lineCounterASMR + 1  # increments the line for each time its added to for ASM
     arrayAlign = arrayAlign + 1
     
-    ASMArr.insert(arrayAlign, new_line)
+    if(':' in new_line):
+        var = 0
+    else:
+        ASMArr.insert(arrayAlign, new_line)
 
+    new_line = str(new_line)
     #new line after each write
     new_line = new_line + '\n'
 
@@ -205,12 +214,7 @@ def justPrint(placeHolder):
 #-----------------------------------------------------------------------------------------------------
 #starts at 0011
 
-def YMCAddress():
-    global YMCArr, lineCounterASMR
-    var4 = lineCounterASMR + 11
-    YMCArr.append(var4)
 
-    return 0
 
 #-----------------------------------------------------------------------------------------------------
 #flags
@@ -222,7 +226,8 @@ overflowF = False
 zeroF = False
 carryF = False #only true, when a signed/unsigned is borrowed (goes out of range, but is in differnt range): like 1011 is 8 4 2 1 : for signed its -8 4 2 1
 signF = False
-flagArr = []
+
+flagArr = [" " for _ in range(n)]
 
 
 #checks most significant bit : true = 1 and false = 0
@@ -1646,7 +1651,7 @@ placeHolder = ''
 
 def betaParser (i):
     global a, b, c, x, y, z, whileCheck, lineCounterASMR, whileASMR, whileLine, ifCheck, eax, ebx, ecx, edx, fileName, whileStatement, arrayAlign
-    global HLCArr, modFlags, modReg, arrayC, liability, placeHolder
+    global HLCArr, modFlags, modReg, arrayC, liability, placeHolder, var6
 
     with open(fileName, 'r') as file:
         content = file.readlines()#reads all lines
@@ -1655,13 +1660,10 @@ def betaParser (i):
 
     #arrays to organize CSV file
     #HLCArr[arrayAlign] = line2 #might be better to use placeHolder
-    HLCArr.insert(arrayAlign, line2)
+    HLCArr.insert(arrayAlign+1, line2)
     fF = flagCarrier()
-    flagArr.insert(arrayAlign, fF)
-    rR = regCheck() 
-    modReg.insert(arrayAlign, rR)
+    YMCArr.insert(arrayAlign+1, arrayAlign + 11)
     #asm array in write asm
-    #also need YMC Address
     #also add machine code to ASM file
 
     #checks for \t in placeHolder[0]
@@ -1730,33 +1732,41 @@ def betaParser (i):
     elif (placeHolder[0] == "print"):   #also needs to be added to the assemlby conversion : print y : 0 1
         if (placeHolder[1] == 'a'):
             print(a)
-            writeASM('print a')
+            writeASM('mov eax, a')
+            writeASM('out eax')
         elif (placeHolder[1] == 'b'):
             print(b)
-            writeASM('print b')
+            writeASM('mov eax, b')
+            writeASM('out eax')
         elif (placeHolder[1] == 'c'):
             print(c)
-            writeASM('print c')
+            writeASM('mov eax, c')
+            writeASM('out eax')
         elif (placeHolder[1] == 'x'):
             print(x)
-            writeASM('print x')
+            writeASM('mov eax, x')
+            writeASM('out eax')
         elif (placeHolder[1] == 'y'):
             print(y)
-            writeASM('print y')
+            writeASM('mov eax, y')
+            writeASM('out eax')
         elif (placeHolder[1] == 'z'):
             print(z)
-            writeASM('print z')
+            writeASM('mov eax, a')
+            writeASM('out eax')
         elif (placeHolder[1] == '\n'):
             print('\n')
-            writeASM('print \n')
+            writeASM('mov eax, \n')
+            writeASM('out eax')
         elif (placeHolder[1] == '\\n'): #sometimes it adds a \
             print('\n')
-            writeASM('print \n')
+            writeASM('mov eax, \n')
+            writeASM('out eax')
         else:
-            var4 = 'print ' + placeHolder[1]
+            var4 = 'out ' + placeHolder[1]
             writeASM(var4)
             print(var4)
-        
+        writeASM('')
     elif (placeHolder[0] == "if"): #Ex. y = 12 or y <= 3 : 1 2 3
         #check for type: <, >, <=, >=, =, !=
 
@@ -1787,7 +1797,7 @@ def betaParser (i):
         writeASM(var4)  #can put at end of if statement to make shorter
 
         writeASM('')
-        writeASM('if:')
+        writeASM('if: ')
 
         #help specify address's
         arrayC.append(lineCounterASMR)
@@ -3396,48 +3406,15 @@ def betaParser (i):
 
         #values to store for later
         whileStatement = placeHolder
-        whileASMR = lineCounterASMR
+        whileASMR = lineCounterASMR + 4
         whileLine = i
 
-        var4 = 'cmp ' + placeHolder[1] + ', ' + placeHolder[3]
-        writeASM(var4)
-
-        #Checks statment: prints jump
-        if (placeHolder[2] == '<'): # while y = 3
-            var4 = 'jl while'      #maybe have it re write this later
-            writeASM(var4)  #can put at end of if statement to make shorter
-
-        elif (placeHolder[2] == '>'):
-            var4 = 'jg while'      #maybe have it re write this later
-            writeASM(var4)  #can put at end of if statement to make shorter
-
-        elif (placeHolder[2] == '<='):
-            var4 = 'jle while'      #maybe have it re write this later
-            writeASM(var4)  #can put at end of if statement to make shorter
-
-        elif (placeHolder[2] == '>='):
-            var4 = 'jge while'      #maybe have it re write this later
-            writeASM(var4)  #can put at end of if statement to make shorter
-            
-        elif (placeHolder[2] == '!='):
-            var4 = 'jne while'      #maybe have it re write this later
-            writeASM(var4)  #can put at end of if statement to make shorter
-
-        elif (placeHolder[2] == '='):
-            var4 = 'je while'
-            writeASM(var4)  #can put at end of if statement to make shorter 
-
-        else:
-            var4 = 'jmp end'
-            writeASM(var4)  #can put at end of if statement to make shorter
-
-        writeASM('')
-        writeASM('while:')  #label for asm jump
-
+        writeASM('While:')
         #help specify address's
         arrayC.append(lineCounterASMR)
         liability = liability + 1
 
+        var6 = 'cmp ' + placeHolder[1] + ', ' + placeHolder[3]
 
         #conflicts of varibles: type any
         a = int(a)
@@ -5023,6 +5000,43 @@ def betaParser (i):
         else:
             print('Compiler: Error for whileCheck creation')
 
+        writeASM(var6)
+
+        #Checks statment: prints jump
+        if (placeHolder[2] == '<'): # while y = 3
+            var4 = 'jl while'      #maybe have it re write this later
+            writeASM(var4)  #can put at end of if statement to make shorter
+
+        elif (placeHolder[2] == '>'):
+            var4 = 'jg while'      #maybe have it re write this later
+            writeASM(var4)  #can put at end of if statement to make shorter
+
+        elif (placeHolder[2] == '<='):
+            var4 = 'jle while'      #maybe have it re write this later
+            writeASM(var4)  #can put at end of if statement to make shorter
+
+        elif (placeHolder[2] == '>='):
+            var4 = 'jge while'      #maybe have it re write this later
+            writeASM(var4)  #can put at end of if statement to make shorter
+            
+        elif (placeHolder[2] == '!='):
+            var4 = 'jne while'      #maybe have it re write this later
+            writeASM(var4)  #can put at end of if statement to make shorter
+
+        elif (placeHolder[2] == '='):
+            var4 = 'je while'
+            writeASM(var4)  #can put at end of if statement to make shorter 
+
+        else:
+            var4 = 'jmp end'
+            writeASM(var4)  #can put at end of if statement to make shorter
+
+        writeASM('')
+        #var4 = str(lineCounterASMR)
+        #writeASM(var4)  #label for asm jump
+
+
+
     elif (placeHolder[0] == "a" or "b" or "c" or "x" or "y" or "z"): #only positive range: 0 to 255
         #check lenght to figure out whats happening
         #3 = declaration, 5 = regular arithmetic, 7 = double arithmetic
@@ -5030,6 +5044,14 @@ def betaParser (i):
 
     else:
         print("Error for Parser")
+
+    
+    
+    flagArr.insert(arrayAlign, fF)
+    rR = regCheck() 
+    modReg.insert(arrayAlign, rR)
+
+
 
     return 0
 
